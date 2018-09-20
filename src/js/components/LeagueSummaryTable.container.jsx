@@ -1,71 +1,38 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-
-const styles = theme => ({
-    root: {
-      width: '95%',
-      marginTop: theme.spacing.unit * 3,
-      // marginLeft: theme.spacing.unit * 3,
-      overflowX: 'auto',
-    },
-    table: {
-      minWidth: 700,
-    },
-  });
+import React, { Component } from 'react';
+import LeagueSummaryTable from './LeagueSummaryTable.presentation';
 
 class LeagueSummaryTableContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            teams: []
+        }
+    }
     // Make API call to get league info using leagueId
 
     // After retrieving team info, render Table with rows for each team
-    
 
-    render(){
-        const {classes} = this.props;
+    componentWillMount() {
+        const getleagueData = async (leagueId) => {
+            let url = 'http://games.espn.com/ffl/api/v2/teams?leagueId=' + leagueId;
+            const res = await fetch(url);
+            const json = await res.json();
+            // save teams to current state
+            this.setState({
+                teams: json.teams
+            });
+        }
+        getleagueData(this.props.leagueId);
+    }
 
+    render() {
+        const { teams } = this.state;
         return (
-            <Paper className={classes.root}>
-            <Table className={classes.table}>
-                <TableHead>
-                <TableRow>
-                    <TableCell>Team name</TableCell>
-                    <TableCell numeric>Owner</TableCell>
-                    <TableCell numeric>Wins</TableCell>
-                    <TableCell numeric>Losses</TableCell>
-                    <TableCell numeric>Points Scored</TableCell>
-                    <TableCell numeric>Bench Points Scored</TableCell>
-                    <TableCell numeric>Acquisitions</TableCell>
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {/* {rows.map(row => {
-                    return (
-                    <TableRow key={row.id}>
-                        <TableCell component="th" scope="row">
-                        {row.name}
-                        </TableCell>
-                        <TableCell numeric>{row.calories}</TableCell>
-                        <TableCell numeric>{row.fat}</TableCell>
-                        <TableCell numeric>{row.carbs}</TableCell>
-                        <TableCell numeric>{row.protein}</TableCell>
-                    </TableRow>
-                    );
-                })} */}
-                </TableBody>
-            </Table>
-            </Paper>
-        )
+            <div>
+                <LeagueSummaryTable teams={teams} />
+            </div>
+        );
     }
 }
 
-LeagueSummaryTableContainer.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(LeagueSummaryTableContainer);
+export default LeagueSummaryTableContainer;

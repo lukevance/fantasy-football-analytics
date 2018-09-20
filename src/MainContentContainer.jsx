@@ -15,7 +15,6 @@ const styles = theme => ({
 });
 
 class MainContent extends React.Component {
-  // (props) {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,28 +22,12 @@ class MainContent extends React.Component {
     }
   }
 
-  componentWillMount(){
-    const getleagueData = async (leagueId) => {
-      let url = 'http://games.espn.com/ffl/api/v2/teams?leagueId=' + leagueId;
-      const res = await fetch(url);
-      const json = await res.json();
-      // save teams to current state
-      this.setState({
-        leagueData: json.teams
-      });
-    }
-   getleagueData(this.state.leagueId);
-  }
-
-
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Typography variant="title"> Your League Name </Typography>
-        {/* <h1>Your League Name Here</h1> */}
-        {/* <DataTableContainer /> */}
-        <LeagueSummaryTableContainer teams={this.state.teams} />
+        <Typography variant="title"> League Summary</Typography>
+        <LeagueSummaryTableContainer leagueId={this.state.leagueId} />
       </div>
     );
   }
