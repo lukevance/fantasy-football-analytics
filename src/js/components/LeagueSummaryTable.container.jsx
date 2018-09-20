@@ -29,7 +29,7 @@ class LeagueSummaryTableContainer extends Component {
         const { teams } = this.state;
         return (
             <div>
-                <LeagueSummaryTable teams={teams} />
+                <LeagueSummaryTable teams={teams} leagueId={this.props.leagueId}/>
             </div>
         );
     }
