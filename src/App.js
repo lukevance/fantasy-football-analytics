@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 
-import NavBar from './NavBar';
+import NavBar from './js/components/NavBar';
 
 
 class App extends Component {
