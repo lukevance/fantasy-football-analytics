@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import LeagueSummaryTableContainer from './LeagueSummaryTable.container';
+// import LeaguePositionSummary from './LeaguePositionSummaries.container';
 
 const styles = theme => ({
   root: {
-    width: '95%',
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit * 3,
     textAlign: 'left',
@@ -17,9 +18,9 @@ const styles = theme => ({
 class MainContent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      leagueId: '286565'
-    }
+    // this.state = {
+    //   leagueId: '286565'
+    // }
   }
 
   render() {
@@ -27,7 +28,8 @@ class MainContent extends React.Component {
     return (
       <div className={classes.root}>
         <Typography variant="title"> League Summary</Typography>
-        <LeagueSummaryTableContainer leagueId={this.state.leagueId} />
+        <LeagueSummaryTableContainer leagueId={this.props.leagueId} />
+        {/* <LeaguePositionSummary teams={store.getState(teams)} */}
       </div>
     );
   }
@@ -37,4 +39,15 @@ MainContent.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MainContent);
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    leagueId: state.leagueId
+  }
+}
+
+const VisibleMainContent = connect(
+  mapStateToProps
+)(MainContent);
+
+export default withStyles(styles)(VisibleMainContent);
