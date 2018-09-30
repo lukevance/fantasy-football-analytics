@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import LeagueSummaryTable from './LeagueSummaryTable.presentation';
 
+const ROOT_URL = process.env.REACT_APP_ROOT_URL;
+const API_KEY = process.env.REACT_APP_API_KEY;
+
 class LeagueSummaryTableContainer extends Component {
     constructor(props) {
         super(props);
@@ -8,16 +11,19 @@ class LeagueSummaryTableContainer extends Component {
             teams: []
         }
     }
-    // Make API call to get league info using leagueId
-
-    // After retrieving team info, render Table with rows for each team
 
     componentWillMount() {
+        // Make API call to get league info using leagueId
         const getleagueData = async (leagueId) => {
-            let url = 'http://games.espn.com/ffl/api/v2/teams?leagueId=' + leagueId;
-            const res = await fetch(url);
+            let url = `${ROOT_URL}/season-summary/${leagueId}`;
+            const options = { 
+                method: 'GET',
+                headers: { 'X-Api-Key': API_KEY }
+            };
+            const res = await fetch(url, options);
             const json = await res.json();
             // save teams to current state
+            console.log(json);
             this.setState({
                 teams: json.teams
             });
@@ -27,9 +33,10 @@ class LeagueSummaryTableContainer extends Component {
 
     render() {
         const { teams } = this.state;
+        // After retrieving team info, render Table with rows for each team
         return (
             <div>
-                <LeagueSummaryTable teams={teams} leagueId={this.props.leagueId}/>
+                <LeagueSummaryTable teams={teams} leagueId={this.props.leagueId} />
             </div>
         );
     }
