@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import LeagueSummaryTable from './LeagueSummaryTable.presentation';
 
 const ROOT_URL = process.env.REACT_APP_ROOT_URL;
@@ -23,7 +24,6 @@ class LeagueSummaryTableContainer extends Component {
             const res = await fetch(url, options);
             const json = await res.json();
             // save teams to current state
-            console.log(json);
             this.setState({
                 teams: json.teams
             });
@@ -42,4 +42,16 @@ class LeagueSummaryTableContainer extends Component {
     }
 }
 
-export default LeagueSummaryTableContainer;
+const mapStateToProps = state => {
+    return {
+      leagueId: state.leagueId,
+      teams: state.teams
+    }
+  }
+  
+  const VisibleLeagueSummary = connect(
+    mapStateToProps
+  )(LeagueSummaryTableContainer);
+  
+
+export default VisibleLeagueSummary;
