@@ -5,7 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import LeagueSummaryTableContainer from './LeagueSummaryTable.container';
+import CollectLeagueIdContainer from './CollectLeagueId.container';
 // import LeaguePositionSummary from './LeaguePositionSummaries.container';
+
 
 const styles = theme => ({
   root: {
@@ -25,13 +27,29 @@ class MainContent extends React.Component {
 
   render() {
     const { classes } = this.props;
-    return (
+    const loginOrTable = (leagueId) => {
+      if (leagueId) {
+        return (
+          <LeagueSummaryTableContainer leagueId={this.props.leagueId} />  
+        );
+      } else {
+        return (
+          <CollectLeagueIdContainer />
+        )
+      }
+    }
+    const combinedComponents = (
       <div className={classes.root}>
         <Typography variant="title"> League Summary</Typography>
-        <LeagueSummaryTableContainer leagueId={this.props.leagueId} />
+        {/* <LeagueSummaryTableContainer leagueId={this.props.leagueId} /> */}
         {/* <LeaguePositionSummary teams={store.getState(teams)} */}
+        {loginOrTable(this.props.leagueId)}
       </div>
     );
+    if (this.props.leagueId){
+
+    }
+    return combinedComponents;
   }
 }
 
