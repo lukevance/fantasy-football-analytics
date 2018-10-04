@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LeagueSummaryTable from './LeagueSummaryTable.presentation';
 
-const ROOT_URL = process.env.REACT_APP_ROOT_URL;
-const API_KEY = process.env.REACT_APP_API_KEY;
+// const ROOT_URL = process.env.REACT_APP_ROOT_URL;
+// const API_KEY = process.env.REACT_APP_API_KEY;
 
 class LeagueSummaryTableContainer extends Component {
     constructor(props) {
@@ -16,10 +16,11 @@ class LeagueSummaryTableContainer extends Component {
     componentWillMount() {
         // Make API call to get league info using leagueId
         const getleagueData = async (leagueId) => {
-            let url = `${ROOT_URL}/season-summary/${leagueId}`;
+            // let url = `${ROOT_URL}/season-summary/${leagueId}`;
+            let url = `http://games.espn.com/ffl/api/v2/teams?leagueId=${leagueId}&seasonId=2018`;
             const options = { 
                 method: 'GET',
-                headers: { 'X-Api-Key': API_KEY }
+                // headers: { 'X-Api-Key': API_KEY }
             };
             const res = await fetch(url, options);
             const json = await res.json();

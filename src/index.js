@@ -4,12 +4,13 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 import reducer from './js/reducers';
 
 const store = createStore(reducer, {
-    leagueId: "286565",
+    // leagueId: "286565",
+    leagueId: null,
     teams: []
   });
 
@@ -20,4 +21,4 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-registerServiceWorker();
+// registerServiceWorker();
