@@ -30,7 +30,10 @@ class MainContent extends React.Component {
     const loginOrTable = (leagueId) => {
       if (leagueId) {
         return (
-          <LeagueSummaryTableContainer leagueId={this.props.leagueId} />  
+          <div>
+            {/* <LeagueHighlights /> */}
+            <LeagueSummaryTableContainer leagueId={this.props.leagueId} />
+          </div>
         );
       } else {
         return (
@@ -46,9 +49,6 @@ class MainContent extends React.Component {
         {loginOrTable(this.props.leagueId)}
       </div>
     );
-    if (this.props.leagueId){
-
-    }
     return combinedComponents;
   }
 }

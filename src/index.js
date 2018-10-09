@@ -9,8 +9,8 @@ import { createStore } from 'redux';
 import reducer from './js/reducers';
 
 const store = createStore(reducer, {
-    // leagueId: "286565",
-    leagueId: null,
+    leagueId: "286565",
+    // leagueId: null,
     teams: []
   });
 
