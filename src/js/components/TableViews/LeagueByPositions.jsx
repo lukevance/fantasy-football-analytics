@@ -1,0 +1,70 @@
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+const styles = theme => ({
+    root: {
+        maxWidth: '97%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
+        // textAlign: 'center'
+    },
+    table: {
+        minWidth: 700,
+
+        // textAlign: 'center'
+    },
+    tableCell: {
+        textAlign: 'left'
+    }
+});
+
+class LeagueByPositions extends Component {
+    render(){
+        const {classes} = this.props;
+        const columns = ["Team", "QB", "RB", "WR", "TE", "D"];
+        const rowValues = ["My Team", 123, 32, 543, 456, 7345];
+        return (
+            <Paper className={classes.root}>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            {
+                                columns.map(col => {
+                                    return (
+                                        <TableCell>
+                                            {col}
+                                        </TableCell>
+                                    )
+                                })
+                            }
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            {rowValues.map(val => {
+                                return (
+                                    <TableCell className={classes.tableCell}>
+                                        {val}
+                                    </TableCell>
+                                )
+                            })}
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </Paper>
+        )
+    }
+}
+
+LeagueByPositions.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(LeagueByPositions);

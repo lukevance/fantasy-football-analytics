@@ -1,84 +1,95 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
-import Paper from 'material-ui/Paper';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import {Paper}  from '@material-ui/core/Paper';
+import {Toolbar} from '@material-ui/core/Toolbar';
+import {Typography} from '@material-ui/core/Typography';
 
-import leagueReader from '../../espnReader/leagueInfo';
-import TeamRow from './teamRow';
-import WeekSelectMenu from '../weekSelectMenu';
+// import leagueReader from '../../espnReader/leagueInfo';
+// import TeamRow from './teamRow';
+// import WeekSelectMenu from '../weekSelectMenu';
 
-const styles = theme => ({
-  root: {
-    width: '80%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-    marginLeft: '10%'
-  },
-  table: {
-    minWidth: 700,
-  },
-});
+// const styles = theme => ({
+//   root: {
+//     width: '80%',
+//     marginTop: theme.spacing.unit * 3,
+//     overflowX: 'auto',
+//     marginLeft: '10%'
+//   },
+//   table: {
+//     minWidth: 700,
+//   },
+// });
 
 
 class LeagueTable extends Component {
-  constructor(props){
-    super(props);
-    // hardcoded leagueId for testing purposes
-    this.state = {
-      week: '15',
-      teamsList: []
-    };
-    this.getTeams = this.getTeams.bind(this);
-  }
+  // constructor(props){
+  //   super(props);
+  //   // hardcoded leagueId for testing purposes
+  //   this.state = {
+  //     week: '15',
+  //     teamsList: []
+  //   };
+  //   // this.getTeams = this.getTeams.bind(this);
+  // }
+  state = {
+    week: '15',
+    teamsList: []
+  };
 
-  getTeams = async (leagueId) => {
-    console.log('get teams!');
-    let data = await leagueReader(this.state.leagueId);
-    let teamList = await data.teams;
-    return teamList;
-  }
+  // getTeams = async (leagueId) => {
+  //   console.log('get teams!');
+  //   let data = await leagueReader(this.state.leagueId);
+  //   let teamList = await data.teams;
+  //   return teamList;
+  // }
 
-  async componentDidMount() {
-    // get list of teams from league reader based on leagueId passed from App
-    await this.setState({
-      teamsList: await this.getTeams(this.state.leagueId)
-    });
-  }
+  // async componentDidMount() {
+  //   // get list of teams from league reader based on leagueId passed from App
+  //   await this.setState({
+  //     teamsList: await this.getTeams(this.state.leagueId)
+  //   });
+  // }
 
   render(){
     const { classes, leagueId } = this.props;
     const { teamsList, week } = this.state;
     let teams;
-    if (teamsList && teamsList.length > 0) {
-      teams = teamsList.map(team => (
-        <TeamRow 
-          team={team}
-          week={week}
-          leagueId={leagueId}
-          key={team.teamId}
-        />
-      ));
-  } else {
-      teams = (
-          <TableRow key="1">
-              <TableCell>"Teams Loading..."</TableCell>
-          </TableRow>
-      )
-  }
+    // if (teamsList && teamsList.length > 0) {
+      // teams = teamsList.map(team => (
+      //   <TeamRow 
+      //     team={team}
+      //     week={week}
+      //     leagueId={leagueId}
+      //     key={team.teamId}
+      //   />
+      // ));
+  // } else {
+  //     teams = (
+  //         <TableRow key="1">
+  //             <TableCell>"Teams Loading..."</TableCell>
+  //         </TableRow>
+  //     )
+  // }
     return (
-      <Paper className={classes.root}>
-        <div className={classes.title}>
+      <Paper >
+        <div >
+      {/* <Paper className={classes.root}>
+        <div className={classes.title}> */}
           <Toolbar>
             <Typography variant="title" color="inherit">
               Week {week} Ranks by Position
             </Typography>
-            <WeekSelectMenu />
+            {/* <WeekSelectMenu /> */}
           </Toolbar>
         </div>
-        <Table className={classes.table}>
+        {/* <Table className={classes.table}> */}
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell>Team</TableCell>
@@ -102,8 +113,9 @@ class LeagueTable extends Component {
   
 }
 
-LeagueTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// LeagueTable.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
 
-export default withStyles(styles)(LeagueTable);
+// export default withStyles(styles)(LeagueTable);
+export default LeagueTable;
