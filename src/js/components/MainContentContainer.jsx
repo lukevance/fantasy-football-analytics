@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -6,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 import LeagueSummaryTableContainer from './LeagueSummaryTable.container';
 import CollectLeagueIdContainer from './CollectLeagueId.container';
-// import LeaguePositionSummary from './LeaguePositionSummaries.container';
-
+import LeagueByPositions from './TableViews/LeagueByPositions';
 
 const styles = theme => ({
   root: {
@@ -17,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-class MainContent extends React.Component {
+class MainContent extends Component {
   constructor(props) {
     super(props);
     // this.state = {
@@ -26,7 +27,7 @@ class MainContent extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, leagueId } = this.props;
     const loginOrTable = (leagueId) => {
       if (leagueId) {
         return (
@@ -41,15 +42,26 @@ class MainContent extends React.Component {
         )
       }
     }
-    const combinedComponents = (
-      <div className={classes.root}>
+    const combinedComponents = () => (
+      <div>
         <Typography variant="title"> League Summary</Typography>
         {/* <LeagueSummaryTableContainer leagueId={this.props.leagueId} /> */}
         {/* <LeaguePositionSummary teams={store.getState(teams)} */}
-        {loginOrTable(this.props.leagueId)}
+        {loginOrTable(leagueId)}
       </div>
     );
-    return combinedComponents;
+    // return combinedComponents;
+    return (
+        <Router>
+          <div className={classes.root}>
+            <Route exact path="/" component={combinedComponents}/>
+            <Route path="/positions" component={LeagueByPositions} />
+            {/* <Route path="/airports" component={Airport}/> */}
+            {/* <Route path="/cities" component={City}/> */}
+          </div>
+        </Router>
+    );
+    
   }
 }
 
