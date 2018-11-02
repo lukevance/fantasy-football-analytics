@@ -35,51 +35,68 @@ const styles = theme => ({
       },
 });
 
+const sorters = {
+    wins: (a, b) => {
+        return b.record.overallWins - a.record.overallWins;
+    },
+    points: (a, b) => {
+        return b.record.pointsFor - a.record.pointsFor;
+    },
+}
+
 class LeagueSummaryTable extends Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     teams: this.props.teams
-        // }
+        this.state = {
+            activeSorter: "wins"
+        }
     }
-
     // After retrieving team info, render Table with rows for each team
 
+    changeSorter(sorter){
+        this.setState({
+            activeSorter: sorter
+        });
+    }
 
     render() {
         const { classes, teams, leagueId } = this.props;
-
+        
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
                             <TableCell />
-                            <TableCell sortDirection={false}>
-                                <Tooltip
-                                    title="Sort"
-                                    placement='bottom-start'
-                                    enterDelay={300}
-                                >
-                                    <TableSortLabel
-                                        active={true}
-                                        direction='desc'
-                                    >
-                                        Team name
-                                    </TableSortLabel>
-                                </Tooltip>
-                            </TableCell>
-                            {/* <TableCell>Team name</TableCell> */}
+                            <TableCell>Team name</TableCell>
                             <TableCell >Owner</TableCell>
-                            <TableCell numeric>Wins</TableCell>
-                            <TableCell numeric>Losses</TableCell>
+                            {["Wins", "Losses", "Points Scored", "Waiver Order", "Acquisitions"].map(col => {
+                                return (
+                                    <TableCell sortDirection={false}>
+                                        <Tooltip
+                                            title="Sort"
+                                            placement='bottom-start'
+                                            enterDelay={300}
+                                        >
+                                            <TableSortLabel
+                                                active={this.state.activeSorter === col.toLowerCase().split(" ")[0]}
+                                                direction='desc'
+                                                onClick={() => this.changeSorter(col.toLowerCase().split(" ")[0])}
+                                            >
+                                                {col}
+                                            </TableSortLabel>
+                                        </Tooltip>
+                                    </TableCell> 
+                                )
+                            })}
+                            {/* <TableCell numeric>Losses</TableCell>
                             <TableCell numeric>Points Scored</TableCell>
                             <TableCell numeric>Waiver Order</TableCell>
-                            <TableCell numeric>Acquisitions</TableCell>
+                            <TableCell numeric>Acquisitions</TableCell> */}
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {teams.map(team => {
+                        {teams.sort(sorters[this.state.activeSorter]).map(team => {
                             return (
                                 <TableRow key={team.teamId}>
                                     <TableCell component="th" scope="row">

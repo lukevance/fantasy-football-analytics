@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-import LeagueSummaryTableContainer from './LeagueSummaryTable.container';
+import LeagueSummaryTableContainer from './LeagueOverview/LeagueSummaryTable.container';
 import CollectLeagueIdContainer from './CollectLeagueId.container';
 import LeagueByPositions from './TableViews/LeagueByPositions';
 
