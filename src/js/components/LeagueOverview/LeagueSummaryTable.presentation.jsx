@@ -35,15 +35,6 @@ const styles = theme => ({
       },
 });
 
-const sorters = {
-    wins: (a, b) => {
-        return b.record.overallWins - a.record.overallWins;
-    },
-    points: (a, b) => {
-        return b.record.pointsFor - a.record.pointsFor;
-    },
-}
-
 class LeagueSummaryTable extends Component {
     constructor(props) {
         super(props);
@@ -60,7 +51,7 @@ class LeagueSummaryTable extends Component {
     }
 
     render() {
-        const { classes, teams, leagueId } = this.props;
+        const { classes, teams, leagueId, sorters } = this.props;
         
         return (
             <Paper className={classes.root}>
@@ -71,28 +62,30 @@ class LeagueSummaryTable extends Component {
                             <TableCell>Team name</TableCell>
                             <TableCell >Owner</TableCell>
                             {["Wins", "Losses", "Points Scored", "Waiver Order", "Acquisitions"].map(col => {
-                                return (
-                                    <TableCell sortDirection={false}>
-                                        <Tooltip
-                                            title="Sort"
-                                            placement='bottom-start'
-                                            enterDelay={300}
-                                        >
-                                            <TableSortLabel
-                                                active={this.state.activeSorter === col.toLowerCase().split(" ")[0]}
-                                                direction='desc'
-                                                onClick={() => this.changeSorter(col.toLowerCase().split(" ")[0])}
+                                if (col === "Losses"){
+                                    return (
+                                        <TableCell key={col}>{col}</TableCell>
+                                    )
+                                } else {
+                                    return (
+                                        <TableCell key={col} sortDirection={false}>
+                                            <Tooltip
+                                                title="Sort"
+                                                placement='bottom-start'
+                                                enterDelay={300}
                                             >
-                                                {col}
-                                            </TableSortLabel>
-                                        </Tooltip>
-                                    </TableCell> 
-                                )
+                                                <TableSortLabel
+                                                    active={this.state.activeSorter === col.toLowerCase().split(" ")[0]}
+                                                    direction={this.state.activeSorter === 'waiver' ? 'asc' : 'desc'}
+                                                    onClick={() => this.changeSorter(col.toLowerCase().split(" ")[0])}
+                                                >
+                                                    {col}
+                                                </TableSortLabel>
+                                            </Tooltip>
+                                        </TableCell> 
+                                    )
+                                }
                             })}
-                            {/* <TableCell numeric>Losses</TableCell>
-                            <TableCell numeric>Points Scored</TableCell>
-                            <TableCell numeric>Waiver Order</TableCell>
-                            <TableCell numeric>Acquisitions</TableCell> */}
                         </TableRow>
                     </TableHead>
                     <TableBody>

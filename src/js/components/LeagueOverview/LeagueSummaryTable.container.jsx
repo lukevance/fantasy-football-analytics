@@ -2,8 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LeagueSummaryTable from './LeagueSummaryTable.presentation';
 
-// const ROOT_URL = process.env.REACT_APP_ROOT_URL;
-// const API_KEY = process.env.REACT_APP_API_KEY;
+
+const sorters = {
+    wins: (a, b) => {
+        return b.record.overallWins - a.record.overallWins;
+    },
+    points: (a, b) => {
+        return b.record.pointsFor - a.record.pointsFor;
+    },
+    waiver: (a, b) => {
+        return a.waiverRank - b.waiverRank;
+    },
+    acquisitions: (a, b) => {
+        return b.teamTransactions.overallAcquisitionTotal - a.teamTransactions.overallAcquisitionTotal;
+    },
+}
 
 class LeagueSummaryTableContainer extends Component {
     constructor(props) {
@@ -16,11 +29,9 @@ class LeagueSummaryTableContainer extends Component {
     componentWillMount() {
         // Make API call to get league info using leagueId
         const getleagueData = async (leagueId) => {
-            // let url = `${ROOT_URL}/season-summary/${leagueId}`;
-            let url = `http://games.espn.com/ffl/api/v2/teams?leagueId=${leagueId}&seasonId=2018`;
+            const url = `http://games.espn.com/ffl/api/v2/teams?leagueId=${leagueId}&seasonId=2018`;
             const options = { 
                 method: 'GET',
-                // headers: { 'X-Api-Key': API_KEY }
             };
             const res = await fetch(url, options);
             const json = await res.json();
@@ -29,6 +40,7 @@ class LeagueSummaryTableContainer extends Component {
                 teams: json.teams
             });
         }
+        console.log('API!')
         getleagueData(this.props.leagueId);
     }
 
@@ -37,7 +49,11 @@ class LeagueSummaryTableContainer extends Component {
         // After retrieving team info, render Table with rows for each team
         return (
             <div>
-                <LeagueSummaryTable teams={teams} leagueId={this.props.leagueId} />
+                <LeagueSummaryTable 
+                    teams={teams} 
+                    leagueId={this.props.leagueId} 
+                    sorters={sorters}
+                />
             </div>
         );
     }
