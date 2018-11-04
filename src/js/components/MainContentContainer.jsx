@@ -55,7 +55,7 @@ class MainContent extends Component {
         <Router>
           <div className={classes.root}>
             <Route exact path="/" component={combinedComponents}/>
-            <Route path="/positions" component={LeagueByPositions} />
+            <Route path="/league-position-summary" component={LeagueByPositions} />
             {/* <Route path="/airports" component={Airport}/> */}
             {/* <Route path="/cities" component={City}/> */}
           </div>

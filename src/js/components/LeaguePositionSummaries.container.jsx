@@ -27,7 +27,7 @@ import {Typography} from '@material-ui/core/Typography';
 // });
 
 
-class LeagueTable extends Component {
+class LeaguePositionSummaryTable extends Component {
   // constructor(props){
   //   super(props);
   //   // hardcoded leagueId for testing purposes

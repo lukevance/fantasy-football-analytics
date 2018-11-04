@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -27,7 +28,7 @@ const styles = theme => ({
 
 class LeagueByPositions extends Component {
     render(){
-        const {classes} = this.props;
+        const {classes, teams} = this.props;
         const columns = ["Team", "QB", "RB", "WR", "TE", "D"];
         const rowValues = ["My Team", 123, 32, 543, 456, 7345];
         return (
@@ -67,4 +68,12 @@ LeagueByPositions.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(LeagueByPositions);
+const mapStateToProps = state => {
+    return {
+        teams: state.teams
+    }
+}
+
+const VisinleLeagueByPositions = connect(mapStateToProps)(LeagueByPositions);
+
+export default withStyles(styles)(VisinleLeagueByPositions);
