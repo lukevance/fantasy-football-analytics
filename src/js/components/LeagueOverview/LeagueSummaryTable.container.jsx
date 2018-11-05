@@ -35,7 +35,7 @@ class LeagueSummaryTableContainer extends Component {
             };
             const res = await fetch(url, options);
             const json = await res.json();
-            // save teams to current state
+            // save teams to current state -- hit REDUX with this ish!!
             this.setState({
                 teams: json.teams
             });

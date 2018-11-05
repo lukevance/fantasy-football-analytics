@@ -18,16 +18,14 @@ const styles = theme => ({
     root: {
         maxWidth: '97%',
         marginTop: theme.spacing.unit * 3,
-        // marginLeft: theme.spacing.unit * 3,
+        marginBottom: theme.spacing.unit * 5,
         overflowX: 'auto',
     },
     table: {
-        minWidth: 700,
+        minWidth: 550,
     },
     avatar: {
         margin: 7,
-        // width: 60,
-        // height: 60,
     },
     icon: {
         margin: theme.spacing.unit * 0.2,
@@ -55,7 +53,7 @@ class LeagueSummaryTable extends Component {
         
         return (
             <Paper className={classes.root}>
-                <Table className={classes.table}>
+                <Table className={classes.table} padding='dense'>
                     <TableHead>
                         <TableRow>
                             <TableCell />
@@ -68,7 +66,7 @@ class LeagueSummaryTable extends Component {
                                     )
                                 } else {
                                     return (
-                                        <TableCell key={col} sortDirection={false}>
+                                        <TableCell key={col} sortDirection={false} numeric>
                                             <Tooltip
                                                 title="Sort"
                                                 placement='bottom-start'
