@@ -3,7 +3,8 @@ import {MuiThemeProvider, createMuiTheme} from '@material-ui/core';
 // import logo from './logo.svg';
 import './App.css';
 
-import NavBar from './js/components/NavBar';
+// import NavBar from './js/components/NavBar';
+import NavBar from './js/components/Navigation/NavBarWithMenuDrawer';
 
 const theme = createMuiTheme({
   palette: {

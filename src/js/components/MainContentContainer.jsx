@@ -12,7 +12,7 @@ import LeagueByPositions from './TableViews/LeagueByPositions';
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 8,
     marginLeft: theme.spacing.unit * 3,
     textAlign: 'left',
   }
@@ -79,4 +79,4 @@ const VisibleMainContent = connect(
   mapStateToProps
 )(MainContent);
 
-export default withStyles(styles)(VisibleMainContent);
+export default withStyles(styles, {withTheme: true})(VisibleMainContent);
