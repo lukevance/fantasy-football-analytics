@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import LeagueByPositionsPresentation from './LeagueByPositions';
 
+import getTeamsWeeklyStats from '../../util';
+
 const range = (start, end) => {
     let range = [];
     for (let i = start; i <= end; i++){
@@ -33,7 +35,9 @@ class LeagueByPositionsContainer extends Component {
                     return;
                 } else {
                     // call lambda.getSingleWeekScore
+                    const teamWeekStats = await getTeamsWeeklyStats(team, week);
                     // update store/indexedDB with weekly stats for BOTH teams
+                    
                 }
             });
         })            
