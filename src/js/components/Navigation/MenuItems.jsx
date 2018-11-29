@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+// import { Link } from 'react-router-dom';
+// import { withRouter } from 'react-router';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -30,45 +33,64 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
-})
+});
+
+const routes = [
+    {
+        title: 'League',
+        path: ""
+    },
+    {
+        title: 'My Team',
+        path: 'my-team'
+    },
+    {
+        title: 'Players',
+        path: 'players'
+    }
+];
 
 class MenuItemsDrawer extends React.Component {
     render(){
         const {open, handleDrawerClose, theme, classes} = this.props;
         return(
-            <Drawer
-                className={classes.drawer}
-                variant="persistent"
-                anchor="left"
-                open={open}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-            >
-                <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
-                    {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                    </IconButton>
-                </div>
-                <Divider />
-                <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                    ))}
-                </List>
-                <Divider />
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                    ))}
-                </List>
-            </Drawer>
+            <Router>
+                <Drawer
+                    className={classes.drawer}
+                    variant="persistent"
+                    anchor="left"
+                    open={open}
+                    classes={{
+                        paper: classes.drawerPaper,
+                    }}
+                >
+                    <div className={classes.drawerHeader}>
+                        <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                        </IconButton>
+                    </div>
+                    <Divider />
+                    <List>
+                        {routes.map((route, index) => (
+                        <Link to={`/${route.path}`}> 
+                            <ListItem button key={route.title}>
+                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItemText primary={route.title} />
+                            </ListItem>
+                        </Link>
+                        ))}
+                    </List>
+                    <Divider />
+                    <List>
+                        {['Settings', 'Leagues'].map((text, index) => (
+                        <ListItem button key={text}>
+                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                        ))}
+                    </List>
+                </Drawer>
+            </Router>
         )
     }
 }
@@ -78,4 +100,5 @@ MenuItemsDrawer.propTypes = {
     theme: PropTypes.object.isRequired,
   };
 
+// export default withStyles(styles, { withTheme: true })(withRouter(MenuItemsDrawer));
 export default withStyles(styles, { withTheme: true })(MenuItemsDrawer);

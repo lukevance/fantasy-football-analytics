@@ -30,15 +30,21 @@ class LeagueSummaryTableContainer extends Component {
         // Make API call to get league info using leagueId
         const getleagueData = async (leagueId) => {
             const url = `http://games.espn.com/ffl/api/v2/teams?leagueId=${leagueId}&seasonId=2018`;
-            const options = { 
+            const options = {
                 method: 'GET',
             };
             const res = await fetch(url, options);
             const json = await res.json();
-            // save teams to current state -- hit REDUX with this ish!!
-            this.setState({
-                teams: json.teams
-            });
+            // if teams were found, save teams to current state -- hit REDUX with this ish!!
+            if (json.teams && json.teams.length > 1){
+                this.setState({
+                    teams: json.teams
+                });
+            } 
+            // if no teams returned, record error TODO; display helpful message to user
+            else {
+                console.log(json);
+            }
         }
         console.log('API!')
         getleagueData(this.props.leagueId);

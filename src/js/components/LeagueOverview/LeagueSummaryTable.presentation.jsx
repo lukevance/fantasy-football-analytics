@@ -13,6 +13,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -98,12 +99,14 @@ class LeagueSummaryTable extends Component {
                                         />
                                     </TableCell>
                                     <TableCell>
-                                            {team.teamLocation + " " + team.teamNickname}
-                                            <IconButton className={classes.button} aria-label="Team Link" href={`http://games.espn.com/ffl/clubhouse?leagueId=${leagueId}&teamId=${team.teamId}&seasonId=2018`} className={classes.button}>
+                                        <Typography variant="inherit" noWrap={true}>{team.teamLocation + " " + team.teamNickname}</Typography>
+                                            {/* <IconButton className={classes.button} aria-label="Team Link" href={`http://games.espn.com/ffl/clubhouse?leagueId=${leagueId}&teamId=${team.teamId}&seasonId=2018`} className={classes.button}>
                                                 <OpenInNewIcon className={classes.icon}/>
-                                            </IconButton>
+                                            </IconButton> */}
                                     </TableCell>
-                                    <TableCell>{team.owners[0].firstName + " " + team.owners[0].lastName}</TableCell>
+                                    <TableCell>
+                                        <Typography noWrap={true}>{team.owners[0].firstName + " " + team.owners[0].lastName}</Typography>
+                                    </TableCell>
                                     <TableCell numeric>{team.record.overallWins}</TableCell>
                                     <TableCell numeric>{team.record.overallLosses}</TableCell>
                                     <TableCell numeric>{team.record.pointsFor}</TableCell>

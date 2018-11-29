@@ -91,7 +91,7 @@ class PersistentDrawerLeft extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography variant="headline" color="inherit" noWrap>
               Fantasy Football Data Ninja
             </Typography>
           </Toolbar>
