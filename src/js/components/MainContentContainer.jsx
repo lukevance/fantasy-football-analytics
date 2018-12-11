@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// import { withRouter } from 'react-router';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 import LeagueSummaryTableContainer from './LeagueOverview/LeagueSummaryTable.container';
 import CollectLeagueIdContainer from './CollectLeagueId.container';
-import LeagueByPositions from './TableViews/LeagueByPositions';
+import LeagueByPositions from './TableViews/LeagueByPositions.container';
 
 const styles = theme => ({
   root: {
@@ -27,48 +27,48 @@ class MainContent extends Component {
   }
 
   render() {
+    console.log('main nav is rendering!');
     const { classes, leagueId } = this.props;
-    const loginOrTable = (leagueId) => {
-      if (leagueId) {
-        return (
-          <div>
-            {/* <LeagueHighlights /> */}
-            <LeagueSummaryTableContainer leagueId={this.props.leagueId} />
-          </div>
-        );
-      } else {
-        return (
-          <CollectLeagueIdContainer />
-        )
-      }
-    }
-    const combinedComponents = () => (
-      <div>
-        <Typography variant="title"> League Summary</Typography>
-        {/* <LeagueSummaryTableContainer leagueId={this.props.leagueId} /> */}
-        {/* <LeaguePositionSummary teams={store.getState(teams)} */}
-        {loginOrTable(leagueId)}
-      </div>
-    );
+    // const loginOrTable = (leagueId) => {
+    //   if (leagueId) {
+    //     return (
+    //       <div>
+    //         {/* <LeagueHighlights /> */}
+    //         <LeagueSummaryTableContainer leagueId={this.props.leagueId} />
+    //       </div>
+    //     );
+    //   } else {
+    //     return (
+    //       <CollectLeagueIdContainer />
+    //     )
+    //   }
+    // };
+    // const combinedComponents = () => (
+    //   <div>
+    //     <Typography variant="title"> League Summary</Typography>
+    //     {/* <LeagueSummaryTableContainer leagueId={this.props.leagueId} /> */}
+    //     {/* <LeaguePositionSummary teams={store.getState(teams)} */}
+    //     {loginOrTable(leagueId)}
+    //   </div>
+    // );
     // return combinedComponents;
     return (
-        <Router>
-          <div className={classes.root}>
-            <Route exact path="/" component={combinedComponents}/>
-            {/* <Route path="/league-position-summary" component={LeagueByPositions} /> */}
+      <div className={classes.root}>
+        <Switch>
+            <Route exact path="/" component={LeagueSummaryTableContainer}/>
+            <Route path="/players" component={LeagueByPositions} />
             <Route path="/my-team" component={LeagueByPositions} />
-            {/* <Route path="/airports" component={Airport}/> */}
-            {/* <Route path="/cities" component={City}/> */}
-          </div>
-        </Router>
+        </Switch>
+        </div>
     );
-    
   }
 }
 
 MainContent.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+const MainContentWithRouter = withRouter(MainContent);
 
 const mapStateToProps = state => {
   return {
@@ -78,6 +78,6 @@ const mapStateToProps = state => {
 
 const VisibleMainContent = connect(
   mapStateToProps
-)(MainContent);
+)(MainContentWithRouter);
 
 export default withStyles(styles, {withTheme: true})(VisibleMainContent);

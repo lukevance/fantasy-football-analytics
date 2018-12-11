@@ -15,6 +15,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import PeopleIcon from '@material-ui/icons/People';
+import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import LabelIcon from '@material-ui/icons/Label';
 
 const drawerWidth = 240;
 
@@ -37,16 +40,19 @@ const styles = theme => ({
 
 const routes = [
     {
-        title: 'League',
-        path: ""
+        title: 'Leagues',
+        path: "",
+        icon: (<BookmarksIcon />)
     },
     {
         title: 'My Team',
-        path: 'my-team'
+        path: 'my-team',
+        icon: (<LabelIcon />)
     },
     {
         title: 'Players',
-        path: 'players'
+        path: 'players',
+        icon: (<PeopleIcon />)
     }
 ];
 
@@ -72,12 +78,12 @@ class MenuItemsDrawer extends React.Component {
                     <Divider />
                     <List>
                         {routes.map((route, index) => (
-                        <Link to={`/${route.path}`}> 
-                            <ListItem button key={route.title}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={route.title} />
-                            </ListItem>
-                        </Link>
+                            <Link to={`/${route.path}`} key={route.path}> 
+                                <ListItem button key={route.title}>
+                                    <ListItemIcon>{route.icon}</ListItemIcon>
+                                    <ListItemText primary={route.title} />
+                                </ListItem>
+                            </Link>
                         ))}
                     </List>
                     <Divider />

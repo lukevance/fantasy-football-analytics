@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import LeagueByPositionsPresentation from './LeagueByPositions';
 
-import getTeamsWeeklyStats from '../../util';
+// import getTeamsWeeklyStats from '../../util';
 
 const range = (start, end) => {
     let range = [];
@@ -22,20 +22,22 @@ class LeagueByPositionsContainer extends Component {
         }
     };
 
-    async componentDidMount(){
+    componentDidMount(){
+        console.log('positions table mounting!')
         const {teams} = this.props;
         const {activeViewPeriod} = this.state;
         // for each team in props.teams
         teams.forEach(team => {
             // for each week in "activePeriod"
+            console.log(team, 'api call!')
             const activePeriod = range(activeViewPeriod.start, activeViewPeriod.end);
-            activePeriod.forEach(week => {
+            activePeriod.forEach(async week => {
                 // check if this weeks' data is already recorded
                 if (team.gamesPlayed[week]) {
                     return;
                 } else {
                     // call lambda.getSingleWeekScore
-                    const teamWeekStats = await getTeamsWeeklyStats(team, week);
+                    // const teamWeekStats = await getTeamsWeeklyStats(team, week);
                     // update store/indexedDB with weekly stats for BOTH teams
                     
                 }
@@ -45,7 +47,8 @@ class LeagueByPositionsContainer extends Component {
     
     render(){
         return (
-            <LeagueByPositionsPresentation teams={teamsData}/>
+            // <LeagueByPositionsPresentation teams={teamsData}/>
+            <LeagueByPositionsPresentation />
         )
     }
 }
