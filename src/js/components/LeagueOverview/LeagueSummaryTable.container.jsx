@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {addTeam} from '../../actions';
 import LeagueSummaryTable from './LeagueSummaryTable.presentation';
 
 
@@ -27,6 +28,7 @@ class LeagueSummaryTableContainer extends Component {
     }
 
     componentWillMount() {
+        const {addTeam} = this.props;
         // Make API call to get league info using leagueId
         const getleagueData = async (leagueId) => {
             const url = `http://games.espn.com/ffl/api/v2/teams?leagueId=${leagueId}&seasonId=2018`;
@@ -37,6 +39,10 @@ class LeagueSummaryTableContainer extends Component {
             const json = await res.json();
             // if teams were found, save teams to current state -- hit REDUX with this ish!!
             if (json.teams && json.teams.length > 1){
+                await json.teams.forEach(team => {
+                    // console.log(team);
+                    addTeam(team)
+                });
                 this.setState({
                     teams: json.teams
                 });
@@ -46,7 +52,7 @@ class LeagueSummaryTableContainer extends Component {
                 console.log(json);
             }
         }
-        console.log('API!')
+        // console.log('API!')
         getleagueData(this.props.leagueId);
     }
 
@@ -70,10 +76,15 @@ const mapStateToProps = state => {
       leagueId: state.leagueId,
       teams: state.teams
     }
-  }
+  };
+
+const mapDispatchToProps = dispatch => ({
+    addTeam: team => dispatch(addTeam(team))
+});
   
   const VisibleLeagueSummary = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
   )(LeagueSummaryTableContainer);
   
 

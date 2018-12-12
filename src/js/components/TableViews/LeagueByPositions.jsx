@@ -18,7 +18,6 @@ const styles = theme => ({
     },
     table: {
         minWidth: 700,
-
         // textAlign: 'center'
     },
     tableCell: {
@@ -31,6 +30,7 @@ class LeagueByPositions extends Component {
         const {classes, teams} = this.props;
         const columns = ["Team", "QB", "RB", "WR", "TE", "D"];
         const rowValues = ["My Team", 123, 32, 543, 456, 7345];
+        console.log(teams);
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>
@@ -74,6 +74,6 @@ const mapStateToProps = state => {
     }
 }
 
-const VisinleLeagueByPositions = connect(mapStateToProps)(LeagueByPositions);
+const VisibleLeagueByPositions = connect(mapStateToProps)(LeagueByPositions);
 
-export default withStyles(styles)(VisinleLeagueByPositions);
+export default withStyles(styles)(VisibleLeagueByPositions);
