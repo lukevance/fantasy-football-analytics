@@ -19,6 +19,7 @@ const theme = createMuiTheme({
 
 class App extends Component {
   render() {
+    console.log('app is rendering!');
     return (
       <MuiThemeProvider theme={theme}>
         <div className="App">
