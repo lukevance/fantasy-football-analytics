@@ -55,6 +55,7 @@ class LeagueByPositionsContainer extends Component {
 
 LeagueByPositionsContainer.propTypes = {
     // classes: PropTypes.object.isRequired,
+    teams: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
