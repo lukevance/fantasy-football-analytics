@@ -9,13 +9,22 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItemsDrawer from './MenuItems';
-import MainContent from '../MainContentContainer';
+// import MainContent from '../MainContentContainer';
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import LeagueSummaryTableContainer from '../LeagueOverview/LeagueSummaryTable.container';
+import LeagueByPositions from '../TableViews/LeagueByPositions.container';
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
     display: 'flex',
+  },
+  main: {
+    marginTop: theme.spacing.unit * 8,
+    marginLeft: theme.spacing.unit * 3,
+    textAlign: 'left',
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -72,6 +81,7 @@ class PersistentDrawerLeft extends React.Component {
   render() {
     const { classes, theme } = this.props;
     const { open } = this.state;
+    console.log('navbr is rendering!');
 
     return (
       <div className={classes.root}>
@@ -104,7 +114,14 @@ class PersistentDrawerLeft extends React.Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          <MainContent />
+          {/* <MainContent /> */}
+          <div className={classes.main}>
+            <Switch>
+                <Route exact path="/" component={LeagueSummaryTableContainer}/>
+                <Route path="/players" component={LeagueByPositions} />
+                <Route path="/my-team" component={LeagueByPositions} />
+            </Switch>
+          </div>
         </main>
       </div>
     );
