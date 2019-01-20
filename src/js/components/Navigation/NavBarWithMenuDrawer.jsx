@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+import { Route, Switch } from "react-router-dom";
+import { withRouter } from 'react-router';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,7 +13,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MenuItemsDrawer from './MenuItems';
 // import MainContent from '../MainContentContainer';
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LeagueSummaryTableContainer from '../LeagueOverview/LeagueSummaryTable.container';
 import LeagueByPositions from '../TableViews/LeagueByPositions.container';
 
@@ -79,9 +80,9 @@ class PersistentDrawerLeft extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme, history, location } = this.props;
     const { open } = this.state;
-    console.log('navbr is rendering!');
+    console.log('navbr is rendering!', location);
 
     return (
       <div className={classes.root}>
@@ -108,7 +109,7 @@ class PersistentDrawerLeft extends React.Component {
           {/* TODO: Place league select menu here! */}
         </AppBar>
         <MenuItemsDrawer open={open} handleDrawerClose={this.handleDrawerClose}/>
-        <main
+        <div
           className={classNames(classes.content, {
             [classes.contentShift]: open,
           })}
@@ -119,10 +120,10 @@ class PersistentDrawerLeft extends React.Component {
             <Switch>
                 <Route exact path="/" component={LeagueSummaryTableContainer}/>
                 <Route path="/players" component={LeagueByPositions} />
-                <Route path="/my-team" component={LeagueByPositions} />
+                <Route path="/teams/:abbrev" component={LeagueByPositions} />
             </Switch>
           </div>
-        </main>
+        </div>
       </div>
     );
   }
@@ -133,4 +134,6 @@ PersistentDrawerLeft.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(PersistentDrawerLeft);
+const styledDrawer = withStyles(styles, { withTheme: true })(PersistentDrawerLeft);
+
+export default withRouter(styledDrawer);

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+
 
 import LeagueByPositionsPresentation from './LeagueByPositions';
 
@@ -46,16 +48,20 @@ class LeagueByPositionsContainer extends Component {
     }
     
     render(){
+        const {match, location} = this.props;
+        console.log('team: ', match.params.abbrev);
+        console.log('league positions', location);
         return (
             // <LeagueByPositionsPresentation teams={teamsData}/>
-            <LeagueByPositionsPresentation />
+            <LeagueByPositionsPresentation location={location}/>
         )
     }
 }
 
 LeagueByPositionsContainer.propTypes = {
     // classes: PropTypes.object.isRequired,
-    teams: PropTypes.object.isRequired
+    teams: PropTypes.array.isRequired,
+    location: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
@@ -66,4 +72,4 @@ const mapStateToProps = state => {
 
 const VizleLeagueByPositions = connect(mapStateToProps)(LeagueByPositionsContainer);
 
-export default VizleLeagueByPositions;
+export default withRouter(VizleLeagueByPositions);

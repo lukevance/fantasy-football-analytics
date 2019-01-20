@@ -60,7 +60,7 @@ class LeagueSummaryTable extends Component {
                             <TableCell />
                             <TableCell>Team name</TableCell>
                             <TableCell >Owner</TableCell>
-                            {["Wins", "Losses", "Points Scored", "Waiver Order", "Acquisitions"].map(col => {
+                            {["Wins", "Losses", "Points Scored", "Waiver Order", "Acquisitions", "Trades"].map(col => {
                                 if (col === "Losses"){
                                     return (
                                         <TableCell key={col}>{col}</TableCell>
@@ -111,7 +111,8 @@ class LeagueSummaryTable extends Component {
                                     <TableCell numeric>{team.record.overallLosses}</TableCell>
                                     <TableCell numeric>{team.record.pointsFor}</TableCell>
                                     <TableCell numeric>{team.waiverRank}</TableCell>
-                                    <TableCell numeric>{team.teamTransactions.overallAcquisitionTotal}</TableCell>
+                                    <TableCell numeric>{team.teamTransactions.overallAcquisitionTotal - team.teamTransactions.trades}</TableCell>
+                                    <TableCell numeric>{team.teamTransactions.trades}</TableCell>
                                 </TableRow>
                             );
                         })}

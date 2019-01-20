@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import {addTeam} from '../../actions';
 import LeagueSummaryTable from './LeagueSummaryTable.presentation';
@@ -16,6 +17,9 @@ const sorters = {
     },
     acquisitions: (a, b) => {
         return b.teamTransactions.overallAcquisitionTotal - a.teamTransactions.overallAcquisitionTotal;
+    },
+    trades: (a, b) => {
+        return b.teamTransactions.trades - a.teamTransactions.trades;
     },
 }
 
@@ -57,7 +61,8 @@ class LeagueSummaryTableContainer extends Component {
     }
 
     render() {
-        const { teams } = this.state;
+        const { teams, location } = this.props;
+        console.log('league summary ', location);
         // After retrieving team info, render Table with rows for each team
         return (
             <div>
@@ -65,6 +70,7 @@ class LeagueSummaryTableContainer extends Component {
                     teams={teams} 
                     leagueId={this.props.leagueId} 
                     sorters={sorters}
+                    location={location}
                 />
             </div>
         );
@@ -88,4 +94,5 @@ const mapDispatchToProps = dispatch => ({
   )(LeagueSummaryTableContainer);
   
 
+// export default withRouter(VisibleLeagueSummary);
 export default VisibleLeagueSummary;

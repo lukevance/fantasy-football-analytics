@@ -81,15 +81,15 @@ class MenuItemsDrawer extends React.Component {
             if (teams.length > 0){
                 return (
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
+                        <List component="div" disablePadding dense>
                             {teams.map(team => {
                                 return (
-                                    <Link to={`teams/${team.teamAbbrev.toLowerCase()}`}>
+                                    <Link to={`/teams/${team.teamAbbrev.toLowerCase()}`} replace key={team.teamAbbrev}>
                                         <ListItem button className={classes.nested}>
                                             <ListItemIcon>
                                                 <PeopleIcon />
                                             </ListItemIcon>
-                                            <ListItemText inset primary={team.teamLocation + " " + team.teamNickname} />
+                                            <ListItemText primary={team.teamLocation + " " + team.teamNickname} secondaryTypographyProps={{noWrap:true}}/>
                                         </ListItem>
                                     </Link>
                                 );
@@ -119,27 +119,35 @@ class MenuItemsDrawer extends React.Component {
                     </div>
                     <Divider />
                     <List>
-                            <Link to={`/`}> 
-                                <ListItem button>
-                                    <ListItemIcon>
-                                        <BookmarksIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Overview" />
-                                </ListItem>
-                            </Link>
-                            {/* <Link to='/teams'> */}
-                                <ListItem 
-                                    button 
-                                    disabled={!Boolean(this.props.teams && this.props.teams.length > 1)} 
-                                    onClick={this.handleClick}
-                                >
-                                    <ListItemIcon>
-                                        <LabelIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Teams" />
-                                    {this.state.open ? <ExpandLess /> : <ExpandMore />}
-                                </ListItem>
-                                {teamLinks(teams, this.state.open)}
+                        <Link to={`/`}> 
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <BookmarksIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Overview" />
+                            </ListItem>
+                        </Link>
+                        <Link to={`/players`}> 
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <BookmarksIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Players" />
+                            </ListItem>
+                        </Link>
+                        {/* <Link to='/teams'> */}
+                            <ListItem 
+                                button 
+                                disabled={!Boolean(this.props.teams && this.props.teams.length > 1)} 
+                                onClick={this.handleClick}
+                            >
+                                <ListItemIcon>
+                                    <LabelIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Teams" />
+                                {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                            </ListItem>
+                            {teamLinks(teams, this.state.open)}
                             {/* </Link> */}
                     </List>
                     <Divider />
@@ -173,5 +181,6 @@ MenuItemsDrawer.propTypes = {
     mapStateToProps
   )(MenuItemsDrawer);
 
+//   const connectedMenu = withRouter(VisibleMenuItems);
 // export default withStyles(styles, { withTheme: true })(withRouter(MenuItemsDrawer));
 export default withStyles(styles, { withTheme: true })(VisibleMenuItems);

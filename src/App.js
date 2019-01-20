@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core';
+import { withRouter } from 'react-router';
 // import logo from './logo.svg';
 import './App.css';
 
@@ -18,16 +19,21 @@ const theme = createMuiTheme({
 });
 
 class App extends Component {
+
   render() {
+    const { location, history } = this.props;
     console.log('appjs is rendering!');
     return (
       <MuiThemeProvider theme={theme}>
         <div className="App">
-          <NavBar />
+          <NavBar 
+            location={location}
+            history={history}
+          />
         </div>
       </MuiThemeProvider>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
