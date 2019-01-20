@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-// import { Link } from 'react-router-dom';
-// import { withRouter } from 'react-router';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
@@ -69,14 +67,13 @@ class MenuItemsDrawer extends React.Component {
     };
     
     handleClick = () => {
-    this.setState(state => ({ open: !state.open }));
+        this.setState(state => ({ open: !state.open }));
     };
 
     render(){
         const {open, handleDrawerClose, theme, classes, teams} = this.props;
-        console.log(teams);
-        console.log('teams?', this.props.teams && this.props.teams.length > 1);
 
+        // if teams have been gathered via API, provide them as menu links
         const teamLinks = (teams, open) => {
             if (teams.length > 0){
                 return (
@@ -84,8 +81,8 @@ class MenuItemsDrawer extends React.Component {
                         <List component="div" disablePadding dense>
                             {teams.map(team => {
                                 return (
-                                    <Link to={`/teams/${team.teamAbbrev.toLowerCase()}`} replace key={team.teamAbbrev}>
-                                        <ListItem button className={classes.nested}>
+                                    <Link to={`/teams/${team.teamAbbrev.toLowerCase()}`} replace key={team.teamAbbrev} onClick={() => console.log('link clicked')}>
+                                        <ListItem button className={classes.nested} >
                                             <ListItemIcon>
                                                 <PeopleIcon />
                                             </ListItemIcon>
@@ -102,7 +99,6 @@ class MenuItemsDrawer extends React.Component {
             }
         }
         return(
-            <Router>
                 <Drawer
                     className={classes.drawer}
                     variant="persistent"
@@ -120,7 +116,7 @@ class MenuItemsDrawer extends React.Component {
                     <Divider />
                     <List>
                         <Link to={`/`}> 
-                            <ListItem button>
+                            <ListItem button >
                                 <ListItemIcon>
                                     <BookmarksIcon />
                                 </ListItemIcon>
@@ -128,27 +124,25 @@ class MenuItemsDrawer extends React.Component {
                             </ListItem>
                         </Link>
                         <Link to={`/players`}> 
-                            <ListItem button>
+                            <ListItem button >
                                 <ListItemIcon>
                                     <BookmarksIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="Players" />
                             </ListItem>
                         </Link>
-                        {/* <Link to='/teams'> */}
-                            <ListItem 
-                                button 
-                                disabled={!Boolean(this.props.teams && this.props.teams.length > 1)} 
-                                onClick={this.handleClick}
-                            >
-                                <ListItemIcon>
-                                    <LabelIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Teams" />
-                                {this.state.open ? <ExpandLess /> : <ExpandMore />}
-                            </ListItem>
-                            {teamLinks(teams, this.state.open)}
-                            {/* </Link> */}
+                        <ListItem 
+                            button 
+                            disabled={!Boolean(this.props.teams && this.props.teams.length > 1)} 
+                            onClick={this.handleClick}
+                        >
+                            <ListItemIcon>
+                                <LabelIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Teams" />
+                            {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                        </ListItem>
+                        {teamLinks(teams, this.state.open)}
                     </List>
                     <Divider />
                     <List>
@@ -160,7 +154,6 @@ class MenuItemsDrawer extends React.Component {
                         ))}
                     </List>
                 </Drawer>
-            </Router>
         )
     }
 }

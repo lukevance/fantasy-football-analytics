@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 
@@ -33,6 +33,7 @@ class LeagueByPositionsContainer extends Component {
             // for each week in "activePeriod"
             console.log(team, 'api call!')
             const activePeriod = range(activeViewPeriod.start, activeViewPeriod.end);
+            console.log(activePeriod);
             activePeriod.forEach(async week => {
                 // check if this weeks' data is already recorded
                 if (team.gamesPlayed[week]) {

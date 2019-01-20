@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import { Route, Switch } from "react-router-dom";
-import { withRouter } from 'react-router';
+import { Route, Switch, withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -82,13 +82,13 @@ class PersistentDrawerLeft extends React.Component {
   render() {
     const { classes, theme, history, location } = this.props;
     const { open } = this.state;
-    console.log('navbr is rendering!', location);
+    console.log('navbr is rendering!', location, history);
 
     return (
       <div className={classes.root}>
         <CssBaseline />
         <AppBar
-          position="fixed"
+          position="fixed"s
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open,
           })}

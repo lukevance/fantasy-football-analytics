@@ -32,7 +32,7 @@ class LeagueSummaryTableContainer extends Component {
     }
 
     componentWillMount() {
-        const {addTeam} = this.props;
+        const {addTeam, teams} = this.props;
         // Make API call to get league info using leagueId
         const getleagueData = async (leagueId) => {
             const url = `http://games.espn.com/ffl/api/v2/teams?leagueId=${leagueId}&seasonId=2018`;
@@ -56,13 +56,13 @@ class LeagueSummaryTableContainer extends Component {
                 console.log(json);
             }
         }
-        // console.log('API!')
-        getleagueData(this.props.leagueId);
+        if (!teams || teams.length < 1){
+            getleagueData(this.props.leagueId);
+        }
     }
 
     render() {
         const { teams, location } = this.props;
-        console.log('league summary ', location);
         // After retrieving team info, render Table with rows for each team
         return (
             <div>
