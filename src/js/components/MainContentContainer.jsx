@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, withRouter } from "react-router-dom";
+// import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -65,8 +65,6 @@ MainContent.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const MainContentWithRouter = withRouter(MainContent);
-
 const mapStateToProps = state => {
   return {
     leagueId: state.leagueId
@@ -75,6 +73,8 @@ const mapStateToProps = state => {
 
 const VisibleMainContent = connect(
   mapStateToProps
-)(MainContentWithRouter);
+)(MainContent);
 
-export default withStyles(styles, {withTheme: true})(VisibleMainContent);
+const MainContentWithRouter = withRouter(VisibleMainContent);
+
+export default withStyles(styles, {withTheme: true})(MainContentWithRouter);

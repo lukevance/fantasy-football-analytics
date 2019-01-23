@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { Route, Switch, withRouter } from 'react-router-dom';
-// import { withRouter } from 'react-router';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItemsDrawer from './MenuItems';
-// import MainContent from '../MainContentContainer';
+import MainContent from '../MainContentContainer';
 
 import LeagueSummaryTableContainer from '../LeagueOverview/LeagueSummaryTable.container';
 import LeagueByPositions from '../TableViews/LeagueByPositions.container';
@@ -115,14 +114,14 @@ class PersistentDrawerLeft extends React.Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          {/* <MainContent /> */}
-          <div className={classes.main}>
+          <MainContent />
+          {/* <div className={classes.main}>
             <Switch>
                 <Route exact path="/" component={LeagueSummaryTableContainer}/>
                 <Route path="/players" component={LeagueByPositions} />
                 <Route path="/teams/:abbrev" component={LeagueByPositions} />
             </Switch>
-          </div>
+          </div> */}
         </div>
       </div>
     );

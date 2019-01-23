@@ -14,11 +14,9 @@ const styles = theme => ({
         maxWidth: '97%',
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
-        // textAlign: 'center'
     },
     table: {
         minWidth: 700,
-        // textAlign: 'center'
     },
     tableCell: {
         textAlign: 'left'
@@ -30,7 +28,6 @@ class LeagueByPositions extends Component {
         const {classes, teams} = this.props;
         const columns = ["Team", "QB", "RB", "WR", "TE", "D"];
         const rowValues = ["My Team", 123, 32, 543, 456, 7345];
-        console.log(teams);
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>
