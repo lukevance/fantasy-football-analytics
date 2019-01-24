@@ -31,12 +31,12 @@ class LeagueByPositionsContainer extends Component {
         // for each team in props.teams
         teams.forEach(team => {
             // for each week in "activePeriod"
-            console.log(team, 'api call!')
+            console.log(team, 'api call!');
             const activePeriod = range(activeViewPeriod.start, activeViewPeriod.end);
             console.log(activePeriod);
             activePeriod.forEach(async week => {
                 // check if this weeks' data is already recorded
-                if (team.gamesPlayed[week]) {
+                if (team.scheduleItems[week]) {
                     return;
                 } else {
                     // call lambda.getSingleWeekScore
