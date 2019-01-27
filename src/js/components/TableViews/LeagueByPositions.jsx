@@ -36,7 +36,7 @@ class LeagueByPositions extends Component {
                             {
                                 columns.map(col => {
                                     return (
-                                        <TableCell>
+                                        <TableCell key={col}>
                                             {col}
                                         </TableCell>
                                     )

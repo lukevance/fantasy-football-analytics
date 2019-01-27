@@ -26,38 +26,24 @@ class MainContent extends Component {
   render() {
     console.log('main nav is rendering!');
     const { classes, leagueId } = this.props;
-    // const loginOrTable = (leagueId) => {
-    //   if (leagueId) {
-    //     return (
-    //       <div>
-    //         {/* <LeagueHighlights /> */}
-    //         <LeagueSummaryTableContainer leagueId={this.props.leagueId} />
-    //       </div>
-    //     );
-    //   } else {
-    //     return (
-    //       <CollectLeagueIdContainer />
-    //     )
-    //   }
-    // };
-    // const combinedComponents = () => (
-    //   <div>
-    //     <Typography variant="title"> League Summary</Typography>
-    //     {/* <LeagueSummaryTableContainer leagueId={this.props.leagueId} /> */}
-    //     {/* <LeaguePositionSummary teams={store.getState(teams)} */}
-    //     {loginOrTable(leagueId)}
-    //   </div>
-    // );
-    // return combinedComponents;
-    return (
-      <div className={classes.root}>
-        <Switch>
-            <Route exact path="/" component={LeagueSummaryTableContainer}/>
-            <Route path="/players" component={LeagueByPositions} />
-            <Route path="/my-team" component={LeagueByPositions} />
-        </Switch>
-        </div>
-    );
+    if (leagueId) {
+      return (
+        <div className={classes.root}>
+          <Switch>
+              <Route exact path="/" component={LeagueSummaryTableContainer}/>
+              <Route path="/players" component={LeagueByPositions} />
+              <Route path="/my-team" component={LeagueByPositions} />
+          </Switch>
+          </div>
+      );
+    } else {
+      // this should render leagueID collection components
+        return (
+          <div style={{paddingTop: 50}}>
+            <h2>No League ID found</h2>
+          </div>
+        );
+    }
   }
 }
 
