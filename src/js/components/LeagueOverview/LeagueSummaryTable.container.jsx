@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import {addTeam} from '../../actions';
 import LeagueSummaryTable from './LeagueSummaryTable.presentation';
@@ -35,6 +35,7 @@ class LeagueSummaryTableContainer extends Component {
         const {addTeam, teams} = this.props;
         // Make API call to get league info using leagueId
         const getleagueData = async (leagueId) => {
+            console.log('1st api')
             const url = `http://games.espn.com/ffl/api/v2/teams?leagueId=${leagueId}&seasonId=2018`;
             const options = {
                 method: 'GET',
@@ -94,5 +95,5 @@ const mapDispatchToProps = dispatch => ({
   )(LeagueSummaryTableContainer);
   
 
-// export default withRouter(VisibleLeagueSummary);
-export default VisibleLeagueSummary;
+export default withRouter(VisibleLeagueSummary);
+// export default VisibleLeagueSummary;

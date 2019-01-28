@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Switch, withRouter } from "react-router-dom";
-// import { withRouter } from 'react-router-dom';
+import { BrowserRouter as Route, Switch, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 
 import LeagueSummaryTableContainer from './LeagueOverview/LeagueSummaryTable.container';
 import CollectLeagueIdContainer from './CollectLeagueId.container';
 import LeagueByPositions from './TableViews/LeagueByPositions.container';
+// import TeamSummary from './TableViews/TeamSummary';
 
 const styles = theme => ({
   root: {
@@ -24,15 +23,17 @@ class MainContent extends Component {
   }
 
   render() {
-    console.log('main nav is rendering!');
+    console.log('main content is rendering!');
     const { classes, leagueId } = this.props;
     if (leagueId) {
+      console.log(leagueId, 'id')
       return (
         <div className={classes.root}>
           <Switch>
               <Route exact path="/" component={LeagueSummaryTableContainer}/>
               <Route path="/players" component={LeagueByPositions} />
               <Route path="/my-team" component={LeagueByPositions} />
+              {/* <Route path="/teams/:team" component={TeamSummary} /> */}
           </Switch>
           </div>
       );
