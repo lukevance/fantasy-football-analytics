@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import {addTeam} from '../../actions';
 import LeagueSummaryTable from './LeagueSummaryTable.presentation';
@@ -93,6 +92,4 @@ const mapDispatchToProps = dispatch => ({
     mapDispatchToProps
   )(LeagueSummaryTableContainer);
   
-
-// export default withRouter(VisibleLeagueSummary);
 export default VisibleLeagueSummary;
