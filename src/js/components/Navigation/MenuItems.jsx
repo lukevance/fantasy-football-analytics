@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
@@ -174,6 +174,4 @@ MenuItemsDrawer.propTypes = {
     mapStateToProps
   )(MenuItemsDrawer);
 
-//   const connectedMenu = withRouter(VisibleMenuItems);
-// export default withStyles(styles, { withTheme: true })(withRouter(MenuItemsDrawer));
 export default withStyles(styles, { withTheme: true })(VisibleMenuItems);
