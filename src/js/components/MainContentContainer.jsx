@@ -23,7 +23,7 @@ class MainContent extends Component {
   }
 
   render() {
-    console.log('main nav is rendering!');
+    console.log('main content is rendering!');
     const { classes, leagueId } = this.props;
     if (leagueId) {
       return (

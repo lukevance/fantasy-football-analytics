@@ -34,6 +34,7 @@ class LeagueSummaryTableContainer extends Component {
         const {addTeam, teams} = this.props;
         // Make API call to get league info using leagueId
         const getleagueData = async (leagueId) => {
+            console.log('1st api')
             const url = `http://games.espn.com/ffl/api/v2/teams?leagueId=${leagueId}&seasonId=2018`;
             const options = {
                 method: 'GET',

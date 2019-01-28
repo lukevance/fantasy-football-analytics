@@ -98,6 +98,7 @@ class MenuItemsDrawer extends React.Component {
                 return null;
             }
         }
+
         return(
                 <Drawer
                     className={classes.drawer}
