@@ -32,11 +32,6 @@ class App extends Component {
             location={location}
             history={history}
           />
-          {/* <Switch>
-                <Route path="/summary" component={LeagueSummaryTableContainer}/>
-                <Route path="/players" component={LeagueByPositions} />
-                <Route path="/teams/:abbrev" component={LeagueByPositions} />
-            </Switch> */}
         </div>
       </MuiThemeProvider>
     );

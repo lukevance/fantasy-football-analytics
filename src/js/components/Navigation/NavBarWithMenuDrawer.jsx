@@ -115,13 +115,6 @@ class PersistentDrawerLeft extends React.Component {
         >
           <div className={classes.drawerHeader} />
           <MainContent />
-          {/* <div className={classes.main}>
-            <Switch>
-                <Route exact path="/" component={LeagueSummaryTableContainer}/>
-                <Route path="/players" component={LeagueByPositions} />
-                <Route path="/teams/:abbrev" component={LeagueByPositions} />
-            </Switch>
-          </div> */}
         </div>
       </div>
     );
