@@ -107,12 +107,12 @@ class LeagueSummaryTable extends Component {
                                     <TableCell>
                                         <Typography noWrap={true}>{team.owners[0].firstName + " " + team.owners[0].lastName}</Typography>
                                     </TableCell>
-                                    <TableCell numeric>{team.record.overallWins}</TableCell>
-                                    <TableCell numeric>{team.record.overallLosses}</TableCell>
-                                    <TableCell numeric>{team.record.pointsFor}</TableCell>
+                                    <TableCell numeric>{team.record.overall.wins}</TableCell>
+                                    <TableCell numeric>{team.record.overall.losses}</TableCell>
+                                    <TableCell numeric>{team.record.overall.pointsFor}</TableCell>
                                     <TableCell numeric>{team.waiverRank}</TableCell>
-                                    <TableCell numeric>{team.teamTransactions.overallAcquisitionTotal - team.teamTransactions.trades}</TableCell>
-                                    <TableCell numeric>{team.teamTransactions.trades}</TableCell>
+                                    <TableCell numeric>{team.transactionCounter.acquisitions}</TableCell>
+                                    <TableCell numeric>{team.transactionCounter.trades}</TableCell>
                                 </TableRow>
                             );
                         })}

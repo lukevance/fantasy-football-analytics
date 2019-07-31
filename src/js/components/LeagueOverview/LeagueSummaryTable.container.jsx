@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {addTeam} from '../../actions';
 import LeagueSummaryTable from './LeagueSummaryTable.presentation';
 
+const ESPN_SWID = process.env.REACT_APP_SWID;
+const ESPN_S2 = process.env.REACT_APP_ESPN_S2;
 
 const sorters = {
     wins: (a, b) => {
@@ -33,12 +35,17 @@ class LeagueSummaryTableContainer extends Component {
     componentWillMount() {
         const {addTeam, teams} = this.props;
         // Make API call to get league info using leagueId
-        const getleagueData = async (leagueId) => {
+        const getleagueData = async leagueId => {
             //TODO: Update to new v3 API!
-            console.log('1st api')
-            const url = `http://games.espn.com/ffl/api/v2/teams?leagueId=${leagueId}&seasonId=2018`;
+            console.log(leagueId);
+            console.log('League Overview')
+            const url = `http://fantasy.espn.com/apis/v3/games/ffl/seasons/2018/segments/0/leagues/${leagueId}?view=mMatchupScore&view=mPositionalRatings&view=mTeam`;
             const options = {
                 method: 'GET',
+                mode: 'no-cors',
+                headers: {
+                    cookie: `espn_s2=${ESPN_S2}; SWID=${ESPN_SWID}`
+                }
             };
             const res = await fetch(url, options);
             const json = await res.json();
