@@ -8,7 +8,7 @@ const ESPN_S2 = process.env.REACT_APP_ESPN_S2;
 
 const sorters = {
     wins: (a, b) => {
-        return b.record.overallWins - a.record.overallWins;
+        return b.record.overall.wins - a.record.overall.wins;
     },
     points: (a, b) => {
         return b.record.pointsFor - a.record.pointsFor;
@@ -17,10 +17,10 @@ const sorters = {
         return a.waiverRank - b.waiverRank;
     },
     acquisitions: (a, b) => {
-        return b.teamTransactions.overallAcquisitionTotal - a.teamTransactions.overallAcquisitionTotal;
+        return b.transactionCounter.acquisitions - a.transactionCounter.acquisitions;
     },
     trades: (a, b) => {
-        return b.teamTransactions.trades - a.teamTransactions.trades;
+        return b.transactionCounter.trades - a.transactionCounter.trades;
     },
 }
 
@@ -39,13 +39,10 @@ class LeagueSummaryTableContainer extends Component {
             //TODO: Update to new v3 API!
             console.log(leagueId);
             console.log('League Overview')
-            const url = `http://fantasy.espn.com/apis/v3/games/ffl/seasons/2018/segments/0/leagues/${leagueId}?view=mMatchupScore&view=mPositionalRatings&view=mTeam`;
+            const url = `https://rwbgp2ppxa.execute-api.us-east-1.amazonaws.com/dev/leagues/${leagueId}?season=2018`;
             const options = {
                 method: 'GET',
-                mode: 'no-cors',
-                headers: {
-                    cookie: `espn_s2=${ESPN_S2}; SWID=${ESPN_SWID}`
-                }
+                // mode: 'no-cors'
             };
             const res = await fetch(url, options);
             const json = await res.json();

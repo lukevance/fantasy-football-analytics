@@ -81,7 +81,7 @@ class MenuItemsDrawer extends React.Component {
                         <List component="div" disablePadding dense>
                             {teams.map(team => {
                                 return (
-                                    <Link to={`/teams/${team.teamAbbrev.toLowerCase()}`} replace key={team.teamAbbrev} onClick={() => console.log('link clicked')}>
+                                    <Link to={`/teams/${team.abbrev.toLowerCase()}`} replace key={team.abbrev} onClick={() => console.log('link clicked')}>
                                         <ListItem button className={classes.nested} >
                                             <ListItemIcon>
                                                 <PeopleIcon />

@@ -99,13 +99,13 @@ class LeagueSummaryTable extends Component {
                                         />
                                     </TableCell>
                                     <TableCell>
-                                        <Typography variant="inherit" noWrap={true}>{team.teamLocation + " " + team.teamNickname}</Typography>
+                                        <Typography variant="inherit" noWrap={true}>{team.location + " " + team.nickname}</Typography>
                                             {/* <IconButton className={classes.button} aria-label="Team Link" href={`http://games.espn.com/ffl/clubhouse?leagueId=${leagueId}&teamId=${team.teamId}&seasonId=2018`} className={classes.button}>
                                                 <OpenInNewIcon className={classes.icon}/>
                                             </IconButton> */}
                                     </TableCell>
                                     <TableCell>
-                                        <Typography noWrap={true}>{team.owners[0].firstName + " " + team.owners[0].lastName}</Typography>
+                                        <Typography noWrap={true}>{team.owners[0]}</Typography>
                                     </TableCell>
                                     <TableCell numeric>{team.record.overall.wins}</TableCell>
                                     <TableCell numeric>{team.record.overall.losses}</TableCell>
