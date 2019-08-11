@@ -50,7 +50,7 @@ class LeagueSummaryTable extends Component {
     }
 
     render() {
-        const { classes, teams, leagueId, sorters } = this.props;
+        const { classes, teams, members, leagueId, sorters } = this.props;
         
         return (
             <Paper className={classes.root}>
@@ -105,7 +105,7 @@ class LeagueSummaryTable extends Component {
                                             </IconButton> */}
                                     </TableCell>
                                     <TableCell>
-                                        <Typography noWrap={true}>{team.owners[0]}</Typography>
+                                        <Typography noWrap={true}>{members.find(mem => mem.id === team.owners[0]).firstName}</Typography>
                                     </TableCell>
                                     <TableCell numeric>{team.record.overall.wins}</TableCell>
                                     <TableCell numeric>{team.record.overall.losses}</TableCell>

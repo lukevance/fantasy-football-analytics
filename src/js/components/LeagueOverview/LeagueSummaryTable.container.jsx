@@ -5,6 +5,7 @@ import LeagueSummaryTable from './LeagueSummaryTable.presentation';
 
 const ESPN_SWID = process.env.REACT_APP_SWID;
 const ESPN_S2 = process.env.REACT_APP_ESPN_S2;
+const baseURL = "";
 
 const sorters = {
     wins: (a, b) => {
@@ -28,7 +29,8 @@ class LeagueSummaryTableContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            teams: []
+            teams: [],
+            members: []
         }
     }
 
@@ -53,7 +55,8 @@ class LeagueSummaryTableContainer extends Component {
                     addTeam(team)
                 });
                 this.setState({
-                    teams: json.teams
+                    teams: json.teams,
+                    members: json.members
                 });
             } 
             // if no teams returned, record error TODO; display helpful message to user
@@ -67,13 +70,14 @@ class LeagueSummaryTableContainer extends Component {
     }
 
     render() {
-        const { teams, location } = this.props;
+        const { teams, location, leagueId } = this.props;
         // After retrieving team info, render Table with rows for each team
         return (
             <div>
                 <LeagueSummaryTable 
                     teams={teams} 
-                    leagueId={this.props.leagueId} 
+                    members={this.state.members}
+                    leagueId={leagueId} 
                     sorters={sorters}
                     location={location}
                 />
