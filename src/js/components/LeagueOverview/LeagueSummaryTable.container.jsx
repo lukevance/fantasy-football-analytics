@@ -12,7 +12,7 @@ const sorters = {
         return b.record.overall.wins - a.record.overall.wins;
     },
     points: (a, b) => {
-        return b.record.pointsFor - a.record.pointsFor;
+        return b.record.overall.pointsFor - a.record.overall.pointsFor;
     },
     waiver: (a, b) => {
         return a.waiverRank - b.waiverRank;

@@ -118,7 +118,7 @@ class LeagueSummaryTable extends Component {
                                     </TableCell>
                                     <TableCell numeric>{team.record.overall.wins}</TableCell>
                                     <TableCell numeric>{team.record.overall.losses}</TableCell>
-                                    <TableCell numeric>{team.record.overall.pointsFor}</TableCell>
+                                    <TableCell numeric>{Math.round(team.record.overall.pointsFor)}</TableCell>
                                     <TableCell numeric>{team.waiverRank}</TableCell>
                                     <TableCell numeric>{team.transactionCounter.acquisitions}</TableCell>
                                     <TableCell numeric>{team.transactionCounter.trades}</TableCell>
