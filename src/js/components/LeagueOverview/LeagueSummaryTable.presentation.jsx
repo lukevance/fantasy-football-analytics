@@ -49,9 +49,18 @@ class LeagueSummaryTable extends Component {
         });
     }
 
+    getOwnerName(members, team){
+        if (members && members.length > 0){
+            const owner = members.find(mem => mem.id === team.owners[0]);
+            return `${owner.firstName} ${owner.lastName}`;
+        } else {
+            return "not found";
+        }
+    }
+
     render() {
         const { classes, teams, members, leagueId, sorters } = this.props;
-        
+        console.log(members);
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table} padding='dense'>
@@ -105,7 +114,7 @@ class LeagueSummaryTable extends Component {
                                             </IconButton> */}
                                     </TableCell>
                                     <TableCell>
-                                        <Typography noWrap={true}>{members.find(mem => mem.id === team.owners[0]).firstName}</Typography>
+                                        <Typography noWrap={true}>{this.getOwnerName(members, team)}</Typography>
                                     </TableCell>
                                     <TableCell numeric>{team.record.overall.wins}</TableCell>
                                     <TableCell numeric>{team.record.overall.losses}</TableCell>

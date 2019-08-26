@@ -1,6 +1,7 @@
 const initialState = {
   leagueId: "286565",
-  teams: []
+  teams: [],
+  members: []
 };
 
 export default (state = initialState, action) => {
@@ -13,7 +14,14 @@ export default (state = initialState, action) => {
             ...state.teams,
             action.team
           ]
-        })
+        });
+      case "ADD_MEMBER":
+        return Object.assign({}, state, {
+          members: [
+            ...state.members,
+            action.member
+          ]
+        });
       default:
         return state;
     }

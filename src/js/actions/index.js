@@ -6,5 +6,11 @@ module.exports = {
             type: "ADD_TEAM",
             team
         }
+    },
+    addMember: member => {
+        return {
+            type: "ADD_MEMBER",
+            member
+        }
     }
 }
