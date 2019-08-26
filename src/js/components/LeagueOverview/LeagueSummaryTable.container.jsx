@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import {addTeam, addMember} from '../../actions';
 import LeagueSummaryTable from './LeagueSummaryTable.presentation';
 
-const ESPN_SWID = process.env.REACT_APP_SWID;
-const ESPN_S2 = process.env.REACT_APP_ESPN_S2;
-const baseURL = "";
-
 const sorters = {
     wins: (a, b) => {
         return b.record.overall.wins - a.record.overall.wins;
@@ -44,17 +40,16 @@ class LeagueSummaryTableContainer extends Component {
             };
             const res = await fetch(url, options);
             const json = await res.json();
-            // if teams were found, save teams to current state -- hit REDUX with this ish!!
+            // if teams were found, save teams to store and state
             if (json.teams && json.teams.length > 1){
                 await json.teams.forEach(team => {
-                    console.log(json.members);
                     addTeam(team)
                 });
                 this.setState({
                     teams: json.teams,
                 });
             }
-            // if members were found, save members to current store and state
+            // if members were found, save members to store and state
             if (json.members && json.members.length > 1){
                 await json.members.forEach(member => {
                     addMember(member);

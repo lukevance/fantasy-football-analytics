@@ -60,7 +60,6 @@ class LeagueSummaryTable extends Component {
 
     render() {
         const { classes, teams, members, leagueId, sorters } = this.props;
-        console.log(members);
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table} padding='dense'>
