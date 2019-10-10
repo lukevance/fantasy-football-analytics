@@ -3,6 +3,9 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import LeagueSummaryTableContainer from './LeagueOverview/LeagueSummaryTable.container';
 import CollectLeagueIdContainer from './CollectLeagueId.container';
@@ -22,17 +25,46 @@ class MainContent extends Component {
     super(props);
   }
 
+  state = {
+    anchorEl: null
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
   render() {
-    console.log('main content is rendering!');
     const { classes, leagueId } = this.props;
+    const { anchorEl } = this.state;
     if (leagueId) {
       return (
         <div className={classes.root}>
+          <Button
+            aria-owns={anchorEl ? 'simple-menu' : undefined}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+          >
+            Open Menu
+        </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+          >
+            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+            <MenuItem onClick={this.handleClose}>My account</MenuItem>
+            <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+          </Menu>
           <Switch>
               <Route exact path="/" component={LeagueSummaryTableContainer}/>
-              <Route path="/players" component={LeagueByPositions} />
+              {/* <Route path="/players" component={LeagueByPositions} />
               <Route path="/my-team" component={LeagueByPositions} />
-              <Route path="/teams/:team" component={TeamSummary} />
+              <Route path="/teams/:team" component={TeamSummary} /> */}
           </Switch>
           </div>
       );

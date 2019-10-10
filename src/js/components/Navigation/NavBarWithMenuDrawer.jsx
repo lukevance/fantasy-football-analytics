@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { Route, Switch, withRouter } from 'react-router-dom';
+// UI components
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+// UI Icons
 import MenuIcon from '@material-ui/icons/Menu';
+// Custom Components
 import MenuItemsDrawer from './MenuItems';
 import MainContent from '../MainContentContainer';
 
-import LeagueSummaryTableContainer from '../LeagueOverview/LeagueSummaryTable.container';
-import LeagueByPositions from '../TableViews/LeagueByPositions.container';
+// import LeagueSummaryTableContainer from '../LeagueOverview/LeagueSummaryTable.container';
+// import LeagueByPositions from '../TableViews/LeagueByPositions.container';
 
 const drawerWidth = 240;
 
@@ -66,22 +69,20 @@ const styles = theme => ({
 });
 
 class PersistentDrawerLeft extends React.Component {
+  // FOR USING THE DRAWER!
   state = {
     open: false,
   };
-
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleDrawerClose = () => {
-    this.setState({ open: false });
-  };
+  // handleDrawerOpen = () => {
+  //   this.setState({ open: true });
+  // };
+  // handleDrawerClose = () => {
+  //   this.setState({ open: false });
+  // };
 
   render() {
     const { classes, theme, history, location } = this.props;
     const { open } = this.state;
-    console.log('navbr is rendering!', location, history);
 
     return (
       <div className={classes.root}>
@@ -95,19 +96,19 @@ class PersistentDrawerLeft extends React.Component {
           <Toolbar disableGutters={!open}>
             <IconButton
               color="inherit"
+              disabled
               aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
+              // onClick={this.handleDrawerOpen}
               className={classNames(classes.menuButton, open && classes.hide)}
             >
               <MenuIcon />
             </IconButton>
             <Typography variant="headline" color="inherit" noWrap>
-              Fantasy Football Data Ninja
+              League of Ordinary Working Men
             </Typography>
           </Toolbar>
-          {/* TODO: Place league select menu here! */}
         </AppBar>
-        <MenuItemsDrawer open={open} handleDrawerClose={this.handleDrawerClose}/>
+        <MenuItemsDrawer open={open} handleDrawerClose={this.handleDrawerClose} />
         <div
           className={classNames(classes.content, {
             [classes.contentShift]: open,

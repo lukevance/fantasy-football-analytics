@@ -34,7 +34,7 @@ class LeagueSummaryTableContainer extends Component {
         const {addTeam, addMember, teams, members, leagueId} = this.props;
         // Make API call to get league info using leagueId
         const getleagueData = async leagueId => {
-            const url = `https://rwbgp2ppxa.execute-api.us-east-1.amazonaws.com/dev/leagues/${leagueId}?season=2018`;
+            const url = `https://8fqfwnzfyb.execute-api.us-east-1.amazonaws.com/dev/leagues/${leagueId}`;
             const options = {
                 method: 'GET'
             };

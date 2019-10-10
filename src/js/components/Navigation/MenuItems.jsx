@@ -145,7 +145,7 @@ class MenuItemsDrawer extends React.Component {
                         </ListItem>
                         {teamLinks(teams, this.state.open)}
                     </List>
-                    <Divider />
+                    {/* <Divider />
                     <List>
                         {['Settings', 'Leagues'].map((text, index) => (
                         <ListItem button key={text}>
@@ -153,7 +153,7 @@ class MenuItemsDrawer extends React.Component {
                             <ListItemText primary={text} />
                         </ListItem>
                         ))}
-                    </List>
+                    </List> */}
                 </Drawer>
         )
     }
