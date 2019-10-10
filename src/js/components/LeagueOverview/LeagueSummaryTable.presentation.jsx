@@ -102,7 +102,7 @@ class LeagueSummaryTable extends Component {
                                     <TableCell component="th" scope="row">
                                         <Avatar
                                             alt="Team Logo"
-                                            src={team.logoUrl}
+                                            src={team.logo}
                                             className={classes.avatar}
                                         />
                                     </TableCell>
