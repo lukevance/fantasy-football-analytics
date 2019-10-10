@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Link, Route, Switch, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 // UI components
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -36,7 +35,7 @@ const availableTableViews = [
   },
   {
     title: "Points by Position",
-    link: "points-by-position"
+    link: "pts-by-position"
   }
 ];
 
@@ -58,7 +57,6 @@ class MainContent extends Component {
     } else {
       this.setState({ anchorEl: null});
     }
-    
   };
 
   render() {
@@ -83,12 +81,23 @@ class MainContent extends Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            {availableTableViews.map(view => <MenuItem onClick={() => this.handleClose(view)}>{view.title}</MenuItem>)}
+            {availableTableViews.map(view => {
+              return (
+                <MenuItem 
+                  component={Link}
+                  to={`/${view.link}`}
+                  onClick={() => this.handleClose(view)}
+                >
+                  {view.title}
+                </MenuItem>
+              )
+            })
+          }
           </Menu>
           <Switch>
-            <Route exact path="/" component={LeagueSummaryTableContainer} />
-            {/* <Route path="/players" component={LeagueByPositions} />
-              <Route path="/my-team" component={LeagueByPositions} />
+            <Route exact path="/overview" component={LeagueSummaryTableContainer} />
+            <Route path="/pts-by-position" component={LeagueByPositions} />
+              {/* <Route path="/my-team" component={LeagueByPositions} />
               <Route path="/teams/:team" component={TeamSummary} /> */}
           </Switch>
         </div>
