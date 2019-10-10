@@ -25,9 +25,14 @@ class LeagueByPositionsContainer extends Component {
     };
 
     componentDidMount(){
-        console.log('positions table mounting!')
-        const {teams} = this.props;
+        const {teams, curentWeek} = this.props;
         const {activeViewPeriod} = this.state;
+        // Call for teams/stats with no week param
+            // record current week and add current stats
+            // work backwards from current week and call /teams/stats for each preceding week
+                // add each week's stats to store
+
+                
         // for each team in props.teams
         teams.forEach(team => {
             // for each week in "activePeriod"
@@ -67,7 +72,7 @@ LeagueByPositionsContainer.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        teams: state.teams
+        teams: state.teams,
     }
 }
 
