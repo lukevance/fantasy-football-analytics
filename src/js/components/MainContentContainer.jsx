@@ -41,7 +41,6 @@ const availableTableViews = [
 ];
 
 class MainContent extends Component {
-
   state = {
     anchorEl: null,
     selectedTable: 0
@@ -51,8 +50,15 @@ class MainContent extends Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = () => {
-    this.setState({ anchorEl: null });
+  handleClose = tableView => {
+    const newSelectedTable = availableTableViews.findIndex(view => view.link === tableView.link);
+    // check that a valid new table was selected
+    if (newSelectedTable >= 0) {
+      this.setState({ anchorEl: null, selectedTable: newSelectedTable});
+    } else {
+      this.setState({ anchorEl: null});
+    }
+    
   };
 
   render() {
@@ -61,16 +67,6 @@ class MainContent extends Component {
     if (leagueId) {
       return (
         <div className={classes.root}>
-          {/* <Button
-            aria-owns={anchorEl ? 'simple-menu' : undefined}
-            aria-haspopup="true"
-            onClick={this.handleClick}
-          >
-            Select View
-          </Button> */}
-          <Typography variant="title" className={classes.tableTitle}>
-            {availableTableViews[selectedTable].title}
-          </Typography>
           <Button 
             variant="contained" 
             color="secondary"
@@ -78,7 +74,7 @@ class MainContent extends Component {
             aria-haspopup="true"
             onClick={this.handleClick}
           >
-            Select View
+            {availableTableViews[selectedTable].title}
             <ArrowDropDown/>
           </Button>
           <Menu
@@ -87,7 +83,7 @@ class MainContent extends Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            {availableTableViews.map(view => <MenuItem onClick={this.handleClose}>{view.title}</MenuItem>)}
+            {availableTableViews.map(view => <MenuItem onClick={() => this.handleClose(view)}>{view.title}</MenuItem>)}
           </Menu>
           <Switch>
             <Route exact path="/" component={LeagueSummaryTableContainer} />
