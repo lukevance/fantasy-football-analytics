@@ -1,7 +1,8 @@
 const initialState = {
   leagueId: "286565",
   teams: [],
-  members: []
+  members: [],
+  // currentWeek: 1
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +22,10 @@ export default (state = initialState, action) => {
             action.member
           ]
         });
+      // case "UPDATE_CURR_WEEK":
+      //   return Object.assign({}, state, {
+      //     currentWeek: action.weekId
+      //   });  n
       default:
         return state;
     }

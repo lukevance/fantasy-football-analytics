@@ -95,7 +95,8 @@ class MainContent extends Component {
           }
           </Menu>
           <Switch>
-            <Route exact path="/overview" component={LeagueSummaryTableContainer} />
+            <Route exact path="/" component={LeagueSummaryTableContainer} />
+            <Route path="/overview" component={LeagueSummaryTableContainer} />
             <Route path="/pts-by-position" component={LeagueByPositions} />
               {/* <Route path="/my-team" component={LeagueByPositions} />
               <Route path="/teams/:team" component={TeamSummary} /> */}

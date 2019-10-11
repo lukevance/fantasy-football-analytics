@@ -25,8 +25,8 @@ const styles = theme => ({
 
 class LeagueByPositions extends Component {
     render(){
-        const {classes, teams} = this.props;
-        const columns = ["Team", "QB", "RB", "WR", "TE", "D"];
+        const {classes, teams, teamData} = this.props;
+        const columns = ["Team", "QB", "RB", "WR", "TE", "D/ST"];
         const rowValues = ["My Team", 123, 32, 543, 456, 7345];
         return (
             <Paper className={classes.root}>
@@ -45,15 +45,21 @@ class LeagueByPositions extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow>
-                            {rowValues.map(val => {
-                                return (
+                        {teamData.map(team => {
+                            if (!team.schedule) {
+                                return null;
+                            }
+                            return (
+                                <TableRow>
                                     <TableCell className={classes.tableCell}>
-                                        {val}
+                                        {team.location + " " + team.nickname}
                                     </TableCell>
-                                )
-                            })}
-                        </TableRow>
+                                    <TableCell className={classes.tableCell}>
+                                        {team.schedule[0].roster.players.find(plyr => plyr.position === "QB")}
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        )}
                     </TableBody>
                 </Table>
             </Paper>

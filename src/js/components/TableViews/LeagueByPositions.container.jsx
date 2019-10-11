@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 
-import LeagueByPositionsPresentation from './LeagueByPositions';
+import LeagueByPositionsPresentation from './LeagueByPositions.presentation';
 
 // import getTeamsWeeklyStats from '../../util';
 
@@ -16,50 +16,47 @@ const range = (start, end) => {
     return range;
 }
 
+const getLeagueWeekStats = async (leagueId, week) => {
+    const weekParam = week ? `?week=${week}` : ``;
+    const url = `https://8fqfwnzfyb.execute-api.us-east-1.amazonaws.com/dev/leagues/${leagueId}/teams/stats${weekParam}`;
+    const options = {
+        method: 'GET'
+    };
+    const res = await fetch(url, options);
+    const json = await res.json();
+    return json;
+};
+
 class LeagueByPositionsContainer extends Component {
     state = {
-        activeViewPeriod: {
-            start: 1,
-            end: 12
-        }
+        teams: []
     };
 
-    componentDidMount(){
-        const {teams, curentWeek} = this.props;
-        const {activeViewPeriod} = this.state;
+    async componentDidMount (){
+        const {teams, leagueId} = this.props;
+        // Check that teams don't have a schedule array
+        
         // Call for teams/stats with no week param
+        const teamsStatsForcurrentWeek = await getLeagueWeekStats(leagueId);
+        if (teamsStatsForcurrentWeek.length > 0) {
             // record current week and add current stats
-            // work backwards from current week and call /teams/stats for each preceding week
-                // add each week's stats to store
-
-                
-        // for each team in props.teams
-        teams.forEach(team => {
-            // for each week in "activePeriod"
-            console.log(team, 'api call!');
-            const activePeriod = range(activeViewPeriod.start, activeViewPeriod.end);
-            console.log(activePeriod);
-            activePeriod.forEach(async week => {
-                // check if this weeks' data is already recorded
-                if (team.scheduleItems[week]) {
-                    return;
-                } else {
-                    // call lambda.getSingleWeekScore
-                    // const teamWeekStats = await getTeamsWeeklyStats(team, week);
-                    // update store/indexedDB with weekly stats for BOTH teams
-                    
-                }
+            this.setState({
+                teams: teamsStatsForcurrentWeek
             });
-        })            
+            // work backwards from current week and call /teams/stats for each preceding week
+                // add each week's stats to store     
+        } else {
+            console.error(teamsStatsForcurrentWeek);
+        }
+                   
     }
     
     render(){
         const {match, location} = this.props;
-        console.log('team: ', match.params.abbrev);
-        console.log('league positions', location);
+        const {teams} = this.state;
         return (
-            // <LeagueByPositionsPresentation teams={teamsData}/>
-            <LeagueByPositionsPresentation location={location}/>
+            <LeagueByPositionsPresentation teamsData={teams}/>
+            // <LeagueByPositionsPresentation location={location}/>
         )
     }
 }
@@ -72,6 +69,7 @@ LeagueByPositionsContainer.propTypes = {
 
 const mapStateToProps = state => {
     return {
+        leagueId: state.leagueId,
         teams: state.teams,
     }
 }

@@ -12,5 +12,11 @@ module.exports = {
             type: "ADD_MEMBER",
             member
         }
-    }
+    },
+    // updateCurrentWeek: weekId => {
+    //     return {
+    //         type: "UPDATE_CURR_WEEK",
+    //         weekId
+    //     }
+    // }
 }
