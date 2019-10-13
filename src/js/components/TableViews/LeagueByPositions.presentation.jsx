@@ -23,11 +23,28 @@ const styles = theme => ({
     }
 });
 
+const sum = (items, prop) => {
+    return items.reduce((a, b) => {
+        return a + b[prop];
+    }, 0);
+};
+
+const totalPointsForPosition = (players, position) => {
+    const positionPlayers = players.filter(plyr => plyr.position === position);
+    const totalPoints = Math.round(sum(positionPlayers, "points"));
+    return totalPoints;
+}
+
 class LeagueByPositions extends Component {
+    constructor(props){
+        super(props);
+    };
+
     render(){
-        const {classes, teams, teamData} = this.props;
+        const {classes, teams, teamsData} = this.props;
         const columns = ["Team", "QB", "RB", "WR", "TE", "D/ST"];
-        const rowValues = ["My Team", 123, 32, 543, 456, 7345];
+        // const rowValues = ["My Team", 123, 32, 543, 456, 7345];
+        console.log(teamsData);
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>
@@ -45,7 +62,7 @@ class LeagueByPositions extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {teamData.map(team => {
+                        {teamsData.map(team => {
                             if (!team.schedule) {
                                 return null;
                             }
@@ -55,7 +72,19 @@ class LeagueByPositions extends Component {
                                         {team.location + " " + team.nickname}
                                     </TableCell>
                                     <TableCell className={classes.tableCell}>
-                                        {team.schedule[0].roster.players.find(plyr => plyr.position === "QB")}
+                                        {totalPointsForPosition(team.schedule[0].roster.players, "QB")}
+                                    </TableCell>
+                                    <TableCell className={classes.tableCell}>
+                                        {totalPointsForPosition(team.schedule[0].roster.players, "RB")}
+                                    </TableCell>
+                                    <TableCell className={classes.tableCell}>
+                                        {totalPointsForPosition(team.schedule[0].roster.players, "WR")}
+                                    </TableCell>
+                                    <TableCell className={classes.tableCell}>
+                                        {totalPointsForPosition(team.schedule[0].roster.players, "TE")}
+                                    </TableCell>
+                                    <TableCell className={classes.tableCell}>
+                                        {totalPointsForPosition(team.schedule[0].roster.players, "D/ST")}
                                     </TableCell>
                                 </TableRow>
                             )}

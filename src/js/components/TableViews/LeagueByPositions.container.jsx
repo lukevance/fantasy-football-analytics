@@ -29,7 +29,7 @@ const getLeagueWeekStats = async (leagueId, week) => {
 
 class LeagueByPositionsContainer extends Component {
     state = {
-        teams: []
+        teamsData: []
     };
 
     async componentDidMount (){
@@ -41,7 +41,7 @@ class LeagueByPositionsContainer extends Component {
         if (teamsStatsForcurrentWeek.length > 0) {
             // record current week and add current stats
             this.setState({
-                teams: teamsStatsForcurrentWeek
+                teamsData: teamsStatsForcurrentWeek
             });
             // work backwards from current week and call /teams/stats for each preceding week
                 // add each week's stats to store     
@@ -53,9 +53,9 @@ class LeagueByPositionsContainer extends Component {
     
     render(){
         const {match, location} = this.props;
-        const {teams} = this.state;
+        const {teamsData} = this.state;
         return (
-            <LeagueByPositionsPresentation teamsData={teams}/>
+            <LeagueByPositionsPresentation teamsData={teamsData}/>
             // <LeagueByPositionsPresentation location={location}/>
         )
     }
