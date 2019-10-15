@@ -30,8 +30,8 @@ const sum = (items, prop) => {
 };
 
 const totalPointsForPosition = (players, position) => {
-    const positionPlayers = players.filter(plyr => plyr.position === position);
-    const totalPoints = Math.round(sum(positionPlayers, "points"));
+    const positionPlayers = players.filter(plyr => plyr.position === position && plyr.starter === true);
+    const totalPoints = Math.round(sum(positionPlayers, "points") * 10)/10;
     return totalPoints;
 }
 
@@ -42,7 +42,7 @@ class LeagueByPositions extends Component {
 
     render(){
         const {classes, teams, teamsData} = this.props;
-        const columns = ["Team", "QB", "RB", "WR", "TE", "D/ST"];
+        const columns = ["Team", "QB", "RB", "WR", "TE", "D/ST", "Total"];
         // const rowValues = ["My Team", 123, 32, 543, 456, 7345];
         console.log(teamsData);
         return (
@@ -85,6 +85,9 @@ class LeagueByPositions extends Component {
                                     </TableCell>
                                     <TableCell className={classes.tableCell}>
                                         {totalPointsForPosition(team.schedule[0].roster.players, "D/ST")}
+                                    </TableCell>
+                                    <TableCell className={classes.tableCell}>
+                                       {Math.round(sum(team.schedule[0].roster.players.filter(plyr => plyr.starter === true), "points") * 10) / 10}
                                     </TableCell>
                                 </TableRow>
                             )}
