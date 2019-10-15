@@ -32,12 +32,9 @@ class LeagueByPositionsContainer extends Component {
         teamsData: []
     };
 
-    async componentDidMount (){
-        const {teams, leagueId} = this.props;
-        // Check that teams don't have a schedule array
-        
+    async getDataForWeek (leagueId, week) {
         // Call for teams/stats with no week param
-        const teamsStatsForcurrentWeek = await getLeagueWeekStats(leagueId);
+        const teamsStatsForcurrentWeek = await getLeagueWeekStats(leagueId, week);
         if (teamsStatsForcurrentWeek.length > 0) {
             // record current week and add current stats
             this.setState({
@@ -48,15 +45,23 @@ class LeagueByPositionsContainer extends Component {
         } else {
             console.error(teamsStatsForcurrentWeek);
         }
-                   
+    }
+
+    async componentDidMount (){
+        const {teams, leagueId} = this.props;
+        // Check that teams don't have a schedule array
+        await this.getDataForWeek(leagueId);
+        
     }
     
     render(){
-        const {match, location} = this.props;
+        const {match, location, leagueId} = this.props;
         const {teamsData} = this.state;
         return (
-            <LeagueByPositionsPresentation teamsData={teamsData}/>
-            // <LeagueByPositionsPresentation location={location}/>
+            <LeagueByPositionsPresentation 
+                teamsData={teamsData}
+                setActiveWeek={(week) => this.getDataForWeek(leagueId, week)}
+            />
         )
     }
 }
