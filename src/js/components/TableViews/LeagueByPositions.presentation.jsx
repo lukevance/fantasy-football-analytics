@@ -8,6 +8,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Tooltip from '@material-ui/core/Tooltip';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 const styles = theme => ({
     root: {
@@ -33,28 +35,75 @@ const totalPointsForPosition = (players, position) => {
     const positionPlayers = players.filter(plyr => plyr.position === position && plyr.starter === true);
     const totalPoints = Math.round(sum(positionPlayers, "points") * 10)/10;
     return totalPoints;
-}
+};
+
+const columns = ["QB", "RB", "WR", "TE", "D/ST", "Total", "Bench"];
+
+const sorters = columns.map(col => {
+    switch (col) {
+        case "Total":
+            return {
+                sortBy: col,
+                sorter: (a, b) => {
+                        return sum(b.schedule[0].roster.players.filter(plyr => plyr.starter === true), "points") - sum(a.schedule[0].roster.players.filter(plyr => plyr.starter === true), "points");
+                    }
+            }
+        case "Bench":
+            return {
+                sortBy: col,
+                sorter: (a, b) => {
+                        return sum(b.schedule[0].roster.players.filter(plyr => plyr.starter === false), "points") - sum(a.schedule[0].roster.players.filter(plyr => plyr.starter === false), "points");
+                    }
+            }
+        default:
+            return {
+                sortBy: col,
+                sorter: (a, b) => {
+                    return totalPointsForPosition(b.schedule[0].roster.players, col) - totalPointsForPosition(a.schedule[0].roster.players, col);
+                }
+            }
+    }
+});
 
 class LeagueByPositions extends Component {
     constructor(props){
         super(props);
+        this.state= {
+            activeSorter: "Total"
+        }
     };
+
+    changeSorter(sorter){
+        this.setState({
+            activeSorter: sorter
+        });
+    }
 
     render(){
         const {classes, teams, teamsData} = this.props;
-        const columns = ["Team", "QB", "RB", "WR", "TE", "D/ST", "Total"];
-        // const rowValues = ["My Team", 123, 32, 543, 456, 7345];
-        console.log(teamsData);
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
+                            <TableCell>Team</TableCell>
                             {
                                 columns.map(col => {
                                     return (
                                         <TableCell key={col}>
-                                            {col}
+                                            <Tooltip
+                                                title="Sort"
+                                                placement="bottom-start"
+                                                enterDelay={300}
+                                            >
+                                                <TableSortLabel
+                                                    active={this.state.activeSorter === col}
+                                                    direction='desc'
+                                                    onClick={() => this.changeSorter(col)}
+                                                >
+                                                    {col}
+                                                </TableSortLabel>
+                                            </Tooltip>
                                         </TableCell>
                                     )
                                 })
@@ -62,7 +111,7 @@ class LeagueByPositions extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {teamsData.map(team => {
+                        {teamsData.sort(sorters.find(srtr => srtr.sortBy === this.state.activeSorter).sorter).map(team => {
                             if (!team.schedule) {
                                 return null;
                             }
@@ -88,6 +137,9 @@ class LeagueByPositions extends Component {
                                     </TableCell>
                                     <TableCell className={classes.tableCell}>
                                        {Math.round(sum(team.schedule[0].roster.players.filter(plyr => plyr.starter === true), "points") * 10) / 10}
+                                    </TableCell>
+                                    <TableCell className={classes.tableCell}>
+                                       {Math.round(sum(team.schedule[0].roster.players.filter(plyr => plyr.starter === false), "points") * 10) / 10}
                                     </TableCell>
                                 </TableRow>
                             )}
